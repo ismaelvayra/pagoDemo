@@ -3,8 +3,30 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title></title>
+    <script src="/static/libs/jquery.js"></script>
+    <script>
+      $( document ).ready(function (){
+        var req_data = {culo: "parlappa"};
+        $("#botonJapi").click(function() {
+           $.ajax({
+              url: "http://localhost:9000/papein",
+              contentType: "application/json; charset=utf-8",
+              async: true,
+              type: "GET",
+              data: req_data,
+              jsonpCallback: "resp",
+              dataType: "jsonp",
+              success: function (data) {
+                  console.log('on success!');
+                  console.log(data.datos);
+              },
+            });
+        });
+      });
+    </script>
 </head>
 <body>
+    <button id="botonJapi">El boton</button>
 EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE eirg?
 </body>
 </html>
