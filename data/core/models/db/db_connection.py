@@ -17,7 +17,7 @@ class Singleton(type):
 
 class DbConnection:
     """
-    This class do the db connection using singleton
+    This class does the db connection using singleton
     """
     __metaclass__ = Singleton
 
@@ -29,7 +29,6 @@ class DbConnection:
         return self.engine
 
     def set_db_connection(self):
-        self.engine = create_engine("postgresql://scott:tiger@localhost:5432/mydatabase")
         self.engine = create_engine("postgresql://%s:%s@%s/%s"
                                     %(DATABASE['adminUser'],
                                       DATABASE['password'],
