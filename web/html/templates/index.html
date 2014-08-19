@@ -4,29 +4,34 @@
     <meta charset="UTF-8">
     <title></title>
     <script src="/static/libs/jquery.js"></script>
+    <script src="/static/api_calls/AjaxCallBase.js"></script>
+    <script src="/static/api_calls/APIAjaxCalls.js"></script>
     <script>
       $( document ).ready(function (){
-        var req_data = {culo: "TOMATOMATOMA"};
+        
         $("#botonJapi").click(function() {
-           $.ajax({
-              url: "http://localhost:9000/papein",
-              contentType: "application/json; charset=utf-8",
-              async: true,
-              type: "GET",
-              data: req_data,
-              jsonpCallback: "resp",
-              dataType: "jsonp",
-              success: function (data) {
-                  console.log('on success!');
-                  console.log(data.datos);
-              },
-            });
+
+          var texto_prueba = $("#txtPrueba").val();
+          var req_data = {culo: texto_prueba};
+          
+          culueando = new culoClass(req_data, success_lala, error_lala);
+          culueando.sendAjaxRequest();
         });
+        
+        var success_lala = function(response_data) {
+          alert("Succediendo of the " + response_data);
+        }
+
+        var error_lala  = function(response_data) {
+          alert("Erroreando con " + response_data);
+        }
+        
       });
     </script>
 </head>
 <body>
     <button id="botonJapi">El boton</button>
+    <input type="text" id="txtPrueba">
 EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE eirg?
 </body>
 </html>
