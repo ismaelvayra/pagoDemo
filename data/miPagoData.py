@@ -2,7 +2,7 @@ import tornado.ioloop
 import tornado.web
 import tornado.httpserver
 
-from data.core.endpoints import data_handlers
+from data.core.api.endpoints import data_handlers
 
 
 class Application(tornado.web.Application):
