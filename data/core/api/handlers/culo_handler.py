@@ -1,5 +1,5 @@
 from data.core.exceptions.exceptions import APIArgError
-from data.core.mi_pago_core.HandlerBaseClasses import BaseHandler
+from data.core.api.base_handlers.HandlerBaseClasses import BaseHandler
 
 
 class CuloHandler(BaseHandler):
