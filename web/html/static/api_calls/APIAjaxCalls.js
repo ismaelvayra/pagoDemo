@@ -2,7 +2,7 @@
 Objetos que haran las llamadas asyncronicas (o no) a las api. Ya estan hechas las llamadas,
 de modo que se semplifica el proceso.
 */
-culoClass.prototype = new HTTPOperation;
+
 var baseParameters = function() {
 	return {
 		url: "",
@@ -13,24 +13,8 @@ var baseParameters = function() {
 	}
 }
 
-// function getUser(param, callBackSuccess, callBackError) {
-// 	/*
-// 	Devuelve un usuario en base al parametro que se le paso
-// 	*/
-// 	var request = $.extend({}, baseParameters(), {
-// 		id: param,
-// 		url: "http://localhost:9000/get_users",
-// 		reqType: "GET",
-// 		callBackFunction: callBackSuccess,
-// 		callBackErrFunction: callBackError,
-// 	});
-// 	HTTPOperation.call(this, request);
-// }
 function culoClass(paramt, callBackSuccess, callBackError) {
-	/*
-	Devuelve un usuario en base al parametro que se le paso
-	*/
-	
+
 	var request = $.extend({}, baseParameters(), {
 		param: paramt,
 		url: "http://localhost:9000/papein",
@@ -47,30 +31,105 @@ function culoClass(paramt, callBackSuccess, callBackError) {
 		request.asyncReq,
 		request.dataType,
 		request.callBackFunction,
-		request.callBackError
+		request.callBackErrFunction
 	);
 }
 
-// function getUsers(paramList) {
-// 	var datos = {'list': paramList};
-// }
+function GetUserRequest(paramt, callBackSuccess, callBackError) {
+	
+	var request = $.extend({}, baseParameters(), {
+		param: paramt,
+		url: "http://localhost:9000/api/user/get",
+		reqType: "GET",
+		callBackFunction: callBackSuccess,
+		callBackErrFunction: callBackError,
+	});
 
-// function getTransaction(param) {
-// 	var datos = {'id': param};
-// }
+	HTTPOperation.call(
+		this,
+		request.url,
+		request.param, 
+		request.reqType,
+		request.asyncReq,
+		request.dataType,
+		request.callBackFunction,
+		request.callBackErrFunction
+	);
+}
 
-// function getTransactions(paramList) {
-// 	var datos = {'list': param};
-// }
+function AddUserRequest(paramt, callBackSuccess, callBackError) {
+	
+	var request = $.extend({}, baseParameters(), {
+		param: paramt,
+		url: "http://localhost:9000/api/user/add",
+		reqType: "GET",
+		callBackFunction: callBackSuccess,
+		callBackErrFunction: callBackError,
+	});
 
+	HTTPOperation.call(
+		this,
+		request.url,
+		request.param, 
+		request.reqType,
+		request.asyncReq,
+		request.dataType,
+		request.callBackFunction,
+		request.callBackErrFunction
+	);
+}
 
+function EditUserRequest(paramt, callBackSuccess, callBackError) {
+	
+	var request = $.extend({}, baseParameters(), {
+		param: paramt,
+		url: "http://localhost:9000/api/user/edit",
+		reqType: "GET",
+		callBackFunction: callBackSuccess,
+		callBackErrFunction: callBackError,
+	});
+
+	HTTPOperation.call(
+		this,
+		request.url,
+		request.param, 
+		request.reqType,
+		request.asyncReq,
+		request.dataType,
+		request.callBackFunction,
+		request.callBackErrFunction
+	);
+}
+
+function DeleteUserRequest(paramt, callBackSuccess, callBackError) {
+
+	var request = $.extend({}, baseParameters(), {
+		param: paramt,
+		url: "http://localhost:9000/api/user/delete",
+		reqType: "GET",
+		callBackFunction: callBackSuccess,
+		callBackErrFunction: callBackError,
+	});
+
+	HTTPOperation.call(
+		this,
+		request.url,
+		request.param, 
+		request.reqType,
+		request.asyncReq,
+		request.dataType,
+		request.callBackFunction,
+		request.callBackErrFunction
+	);
+}
 
 /*
 ####################################################################
 Herencia de las clases
 */
 
-// getUser.prototype = new HTTPOperation;
-// getUsers.prototype = new HTTPOperation;
-// getTransaction.prototype = new HTTPOperation;
-// getTransactions.prototype = new HTTPOperation;
+culoClass.prototype = new HTTPOperation;
+GetUserRequest.prototype = new HTTPOperation;
+AddUserRequest.prototype = new HTTPOperation;
+EditUserRequest.prototype = new HTTPOperation;
+DeleteUserRequest.prototype = new HTTPOperation;

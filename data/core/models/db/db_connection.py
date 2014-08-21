@@ -29,9 +29,9 @@ class DbConnection:
         return self.engine
 
     def set_db_connection(self):
-        self.engine = create_engine("postgresql://%s:%s@%s/%s"
-                                    %(DATABASE['adminUser'],
-                                      DATABASE['password'],
-                                      DATABASE['host_db'],
-                                      DATABASE['database'],
+        self.engine = create_engine("postgresql://%s:%s@%s/%s" % (
+            DATABASE['adminUser'],
+            DATABASE['password'],
+            DATABASE['host_db'],
+            DATABASE['database'],
         ))

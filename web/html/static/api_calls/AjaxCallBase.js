@@ -47,6 +47,14 @@ function HTTPOperation(inUrl, inParams, inReqType, inAsyncReq, inDataType, inCal
 		return dataType;
 	}
 
+	this.getSuccessCallbackFunction = function() {
+		return callBackFunction;
+	}
+
+	this.getErrorCallbackFunction = function() {
+		return callBackErrFunction;
+	}
+
 	// Manda la request con los parametros del objeto
 	this.sendAjaxRequest = function() {
 		$.ajax({
@@ -58,15 +66,13 @@ function HTTPOperation(inUrl, inParams, inReqType, inAsyncReq, inDataType, inCal
 			dataType: dataType,
 			jsonpCallback: "resp",
 			success: function(data) {
-				if(callBackFunction != null) {
-					callBackFunction(data.datos);
-				} 
-			},
-			error: function(e) {
-				if(callBackErrFunction != null) {
-					callBackErrFunction(e);
+				if (data.r == 200) {
+					callBackFunction(data);
+				} else {
+					callBackErrFunction(data);
 				}
-			}
+				
+			},
 		});
 	}
 }

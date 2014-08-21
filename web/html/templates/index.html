@@ -9,29 +9,94 @@
     <script>
       $( document ).ready(function (){
         
-        $("#botonJapi").click(function() {
+        $("#addUser").click(function() {
 
-          var texto_prueba = $("#txtPrueba").val();
-          var req_data = {culo: texto_prueba};
+          var req_data = {
+            username: $("#addUserName").val(),
+            name: $("#addnombre").val(),
+            surname: $("#addapellido").val(),
+            password: $("#addpassword").val()
+          };
           
-          culueando = new culoClass(req_data, success_lala, error_lala);
-          culueando.sendAjaxRequest();
+          new_user = new AddUserRequest(req_data, success_lala, error_lala);
+          new_user.sendAjaxRequest();
+        });
+
+        $("#editUser").click(function() {
+
+          var req_data = {
+            id: $("#editid").val(),
+            username: $("#editUserName").val(),
+            name: $("#editnombre").val(),
+            surname: $("#addapellido").val(),
+            password: $("#editpassword").val()
+          };
+          
+          new_user = new EditUserRequest(req_data, success_lala, error_lala);
+          new_user.sendAjaxRequest();
+        });
+
+        $("#getUser").click(function() {
+
+          var req_data = {
+            username: $("#getUserName").val(),
+            id: $("#getid").val(),
+          };
+          
+          new_user = new GetUserRequest(req_data, success_lala, error_lala);
+          new_user.sendAjaxRequest();
+        });
+
+        $("#deleteUser").click(function() {
+
+          var req_data = {
+            username: $("#delUserName").val(),
+            id: $("#delid").val(),
+          };
+          
+          new_user = new DeleteUserRequest(req_data, success_lala, error_lala);
+          new_user.sendAjaxRequest();
         });
         
         var success_lala = function(response_data) {
-          alert("Succediendo of the " + response_data);
+          $("#respuesta").html("<b style='color:green'>"+JSON.stringify(response_data.data)+"</b>");
         }
 
         var error_lala  = function(response_data) {
-          alert("Erroreando con " + response_data);
+          $("#respuesta").html("<b style='color:red'>"+JSON.stringify(response_data)+"</b>");
         }
         
       });
     </script>
 </head>
 <body>
-    <button id="botonJapi">El boton</button>
-    <input type="text" id="txtPrueba">
-EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE eirg?
+  
+  <h2> Nuevo usuario </h2>
+  <p>email: <input type="text" id="addUserName"></p>
+  <p>password: <input type="text" id="addpassword"></p>
+  <p>nombre: <input type="text" id="addnombre"></p>
+  <p>apellido: <input type="text" id="addapellido"></p>
+  <button id="addUser">Add User</button>
+  <hr>
+  <h2> Editar usuario </h2>
+  <p>email: <input type="text" id="editUserName"></p>
+  <p>id: <input type="text" id="editid"></p>
+  <p>password: <input type="text" id="editpassword"></p>
+  <p>nombre: <input type="text" id="editnombre"></p>
+  <p>apellido: <input type="text" id="editapellido"></p>
+  <button id="editUser">Edit User</button>
+  <hr>
+  <h2> Pedir un usuario </h2>
+  <p>email: <input type="text" id="getUserName"></p>
+  <p>id: <input type="text" id="getid"></p>
+  <button id="getUser">Get User</button>
+  <hr>
+  <h2> Borrar usuario </h2>
+  <p>email: <input type="text" id="delUserName"></p>
+  <p>id: <input type="text" id="delid"></p>
+  <button id="deleteUser">Delete User</button>
+  <hr>
+
+  <div id='respuesta'></div>
 </body>
 </html>
