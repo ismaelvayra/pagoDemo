@@ -5,12 +5,17 @@ import json
 
 
 class BaseHandler(tornado.web.RequestHandler):
-
     def write(self, stuff):
+        response = {}
         if isinstance(stuff, dict):
             if not stuff.has_key('r'):
-                stuff['r'] = self.get_status()
-            super(BaseHandler, self).write('resp(' + json.dumps(stuff) + ')')
+                response['r'] = self.get_status()
+                response['data'] = stuff.copy()
+            if 'err_msg' in stuff:
+                response['r'] = stuff.pop('r')
+                response['error'] = stuff.copy()
+
+            super(BaseHandler, self).write('resp(' + json.dumps(response) + ')')
             self.set_header('Content-Type', 'application/javascript')
         else:
             super(BaseHandler, self).write(stuff)

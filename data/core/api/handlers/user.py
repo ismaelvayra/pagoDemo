@@ -9,7 +9,8 @@ from data.core.exceptions.exceptions import (
     APINotFound
 )
 from data.core.api.base_handlers.HandlerBaseClasses import BaseHandler
-from data.core.models.db.db_entities import db_session, User
+from data.core.models.db.db_entities import db_session
+from data.core.models.db.user import User
 from data.core.constants.error_constants import APIErrorMsg
 
 
@@ -17,32 +18,51 @@ class UserHandler(BaseHandler):
 
     def get(self):
 
-        username = self.get_argument('username', None)
-        user_id = self.get_argument('id', None) if self.get_argument('id', None) else None
+        args = {
+            'username': self.get_argument('username', None),
+            'user_id': self.get_argument('id', None) if self.get_argument('id', None) else None,
+        }
 
-        if not username and not user_id:
+        if not args['username'] and not args['user_id']:
             raise APIArgError(APIErrorMsg.EMPTY_ARG, "username", "id")
 
         user = db_session.query(User).filter(
             or_(
-                User.username == username,
-                User.id == user_id
+                User.username == args['username'],
+                User.id == args['user_id']
             )
         ).first()
 
-        if user_id and username and \
-                (str(user.id) == user_id and username != user.username) or\
-                (str(user.id) != user_id and username == user.username):
+        if args['user_id'] and args['username'] and (
+                (str(user.id) == args['user_id'] and args['username'] != user.username) or
+                (str(user.id) != args['user_id'] and args['username'] == user.username)):
             raise APINotMatchError(APIErrorMsg.FIELDS_NOT_MATCH, "username", "id")
 
-        self.write({
-            'data': {
-                'id': str(user.id),
-                'username': user.username,
-                'name': user.name,
-                'surname': user.surname,
-            },
-        })
+        if user is None:
+            raise APINotMatchError(APIErrorMsg.NOT_FOUND, "username")
+
+        self.write(user.to_dict())
+
+
+class UsersHandler(BaseHandler):
+
+    def get(self):
+
+        args = {
+            'users': list(self.get_argument('users')) if self.get_argument('users') else None
+        }
+
+        if args['users'] is None:
+            raise APIArgError(APIErrorMsg.EMPTY_ARG, "users")
+
+        users = [u.__dict__ for u in db_session.query(User).filter(
+            or_(
+                User.username in args['users'],
+                User.id in args['users'],
+            )
+        ).all()]
+
+        self.write(users)
 
 
 class AddUserHandler(BaseHandler):
@@ -70,14 +90,7 @@ class AddUserHandler(BaseHandler):
         )
         db_session.add(new_user)
         db_session.commit()
-        self.write({
-            'data': {
-                'id': str(new_user.id),
-                'username': new_user.username,
-                'name': new_user.name,
-                'surname': new_user.surname,
-            },
-        })
+        self.write(new_user.to_dict())
 
 
 class EditUserHandler(BaseHandler):
@@ -121,15 +134,7 @@ class EditUserHandler(BaseHandler):
         # if user_changed:
         db_session.commit()
 
-        self.write(
-            {
-                'data': {
-                    'id': str(edited_user.id),
-                    'username': edited_user.username,
-                    'name': edited_user.name,
-                    'surname': edited_user.surname,
-                },
-            })
+        self.write(edited_user.to_dict())
 
 
 class DeleteUserHandler(BaseHandler):
@@ -137,8 +142,8 @@ class DeleteUserHandler(BaseHandler):
     def get(self):
 
         args = {
-            'id': self.get_argument('id'),
-            'username': self.get_argument('username', None),
+            'id': self.get_argument('id') if self.get_argument('id') else None,
+            'username': self.get_argument('username', None) if self.get_argument('username', None) else None,
         }
 
         if not args['username'] and not args['id']:
@@ -154,9 +159,9 @@ class DeleteUserHandler(BaseHandler):
         if user is None:
             raise APINotFound(APIErrorMsg.NOT_FOUND, "id: %s" % args['id'])
 
-        if args['id'] is not None and args['username'] is not None and \
+        if args['id'] is not None and args['username'] is not None and (
                 (str(user.id) == args['id'] and args['username'] != user.username) or\
-                (str(user.id) != args['id'] and args['username'] == user.username):
+                (str(user.id) != args['id'] and args['username'] == user.username)):
             raise APINotMatchError(APIErrorMsg.FIELDS_NOT_MATCH, "username", "id")
 
         db_session.delete(user)

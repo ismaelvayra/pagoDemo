@@ -3,9 +3,8 @@ __author__ = 'tanito'
 import uuid
 
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, String, ForeignKey, Float
 from sqlalchemy.dialects.postgresql import UUID, CHAR
-from sqlalchemy.orm import relationship, backref, sessionmaker
+from sqlalchemy.orm import sessionmaker
 from sqlalchemy import TypeDecorator
 from data.core.models.db.db_connection import DbConnection
 
@@ -48,36 +47,5 @@ class GUID(TypeDecorator):
         else:
             return uuid.UUID(value)
 
-
-class User(Base):
-
-    __tablename__ = "mipago_user"
-
-    id = Column(GUID(), default=uuid.uuid4, nullable=False, unique=True, primary_key=True)
-    username = Column(String, nullable=False, unique=True)
-    name = Column(String)
-    surname = Column(String)
-    password = Column(String)
-
-    def __repr__(self):
-        return "<MiPagoUser(username='%s', name='%s', password='%s')>"\
-               % (self.username, self.name, self.password)
-
-
-class Transaction(Base):
-
-    __tablename__ = "mipago_transaction"
-
-    id = Column(GUID(), default=uuid.uuid4, nullable=False, unique=True, primary_key=True)
-    user_id = Column(GUID(), ForeignKey('mipago_user.id'))
-    concept = Column(String)
-    amount = Column(Float)
-
-    # Relationship declaration
-    mipago_user = relationship('User', backref=backref('mipago_transaction', order_by=id))
-
-    def __repr__(self):
-        return "<MiPagoTransaction(amount='%s', concept='%s', username='%s')>"\
-               % (self.amount, self.concept, self.user_id)
 
 Base.metadata.create_all(db_conn.get_db_connection())
