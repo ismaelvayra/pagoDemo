@@ -28,7 +28,7 @@
             id: $("#editid").val(),
             username: $("#editUserName").val(),
             name: $("#editnombre").val(),
-            surname: $("#addapellido").val(),
+            surname: $("#editapellido").val(),
             password: $("#editpassword").val()
           };
           
@@ -60,6 +60,7 @@
         
         var success_lala = function(response_data) {
           $("#respuesta").html("<b style='color:green'>"+JSON.stringify(response_data.data)+"</b>");
+          alert(response_data.data.username);
         }
 
         var error_lala  = function(response_data) {

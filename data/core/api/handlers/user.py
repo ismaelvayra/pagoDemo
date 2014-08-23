@@ -99,10 +99,10 @@ class EditUserHandler(BaseHandler):
 
         args = {
             'id': self.get_argument('id'),
-            'username': self.get_argument('username', None),
-            'surname': self.get_argument('surname', None),
-            'name': self.get_argument('name', None),
-            'password': self.get_argument('password', None),
+            'username': self.get_argument('username', None) if self.get_argument('username', None) else None,
+            'surname': self.get_argument('surname', ""),
+            'name': self.get_argument('name', ""),
+            'password': self.get_argument('password', None) if self.get_argument('password', None) else None,
         }
 
         user = db_session.query(User).filter(
@@ -121,12 +121,8 @@ class EditUserHandler(BaseHandler):
 
         if args['username']:
             edited_user.username = args['username']
-        else:
-            raise APIArgError(APIErrorMsg.EMPTY_ARG, 'username')
         if args['password']:
             edited_user.password = args['password']
-        else:
-            raise APIArgError(APIErrorMsg.EMPTY_ARG, 'password')
 
         edited_user.surname = args['surname']
         edited_user.name = args['name']
