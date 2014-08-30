@@ -11,8 +11,7 @@ from data.core.exceptions.exceptions import (
     APINotFound
 )
 from data.core.api.base_handlers.HandlerBaseClasses import BaseHandler
-from data.core.models.db.db_entities import db_session
-from data.core.models.db.user import User
+from data.core.models.db.db_entities import db_session, User
 from data.core.constants.error_constants import APIErrorMsg
 
 
