@@ -3,6 +3,9 @@ Objetos que haran las llamadas asyncronicas (o no) a las api. Ya estan hechas la
 de modo que se semplifica el proceso.
 */
 
+var data_url = "http://enzoalberdi.zapto.org:9000/";
+var web_url = "http://enzoalberdi.zapto.org:9999/";
+
 var baseParameters = function() {
 	return {
 		url: "",
@@ -13,33 +16,11 @@ var baseParameters = function() {
 	}
 }
 
-function culoClass(paramt, callBackSuccess, callBackError) {
-
-	var request = $.extend({}, baseParameters(), {
-		param: paramt,
-		url: "http://localhost:9000/papein",
-		reqType: "GET",
-		callBackFunction: callBackSuccess,
-		callBackErrFunction: callBackError,
-	});
-
-	HTTPOperation.call(
-		this,
-		request.url,
-		request.param, 
-		request.reqType,
-		request.asyncReq,
-		request.dataType,
-		request.callBackFunction,
-		request.callBackErrFunction
-	);
-}
-
 function GetUserRequest(paramt, callBackSuccess, callBackError) {
 	
 	var request = $.extend({}, baseParameters(), {
 		param: paramt,
-		url: "http://localhost:9000/api/user/get",
+		url: data_url + "api/user/get",
 		reqType: "GET",
 		callBackFunction: callBackSuccess,
 		callBackErrFunction: callBackError,
@@ -61,7 +42,7 @@ function AddUserRequest(paramt, callBackSuccess, callBackError) {
 	
 	var request = $.extend({}, baseParameters(), {
 		param: paramt,
-		url: "http://localhost:9000/api/user/add",
+		url: data_url + "api/user/add",
 		reqType: "GET",
 		callBackFunction: callBackSuccess,
 		callBackErrFunction: callBackError,
@@ -83,7 +64,7 @@ function EditUserRequest(paramt, callBackSuccess, callBackError) {
 	
 	var request = $.extend({}, baseParameters(), {
 		param: paramt,
-		url: "http://localhost:9000/api/user/edit",
+		url: data_url + "api/user/edit",
 		reqType: "GET",
 		callBackFunction: callBackSuccess,
 		callBackErrFunction: callBackError,
@@ -105,7 +86,7 @@ function DeleteUserRequest(paramt, callBackSuccess, callBackError) {
 
 	var request = $.extend({}, baseParameters(), {
 		param: paramt,
-		url: "http://localhost:9000/api/user/delete",
+		url: data_url + "api/user/delete",
 		reqType: "GET",
 		callBackFunction: callBackSuccess,
 		callBackErrFunction: callBackError,
