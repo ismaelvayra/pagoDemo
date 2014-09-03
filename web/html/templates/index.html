@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="/static/libs/assets/css/main.min.css">
+    <script src="/static/libs/jquery.js"></script>
+    <script src="/static/libs/assets/js/scripts.min.js"></script>
+    <script src="/static/api_calls/AjaxCallBase.js"></script>
+    <script src="/static/api_calls/APIAjaxCalls.js"></script>
+    <script>
+      $( document ).ready(function (){
+        
+        $("#botonJapi").click(function() {
+
+          var texto_prueba = $("#txtPrueba").val();
+          var req_data = {culo: texto_prueba};
+          
+          culueando = new culoClass(req_data, success_lala, error_lala);
+          culueando.sendAjaxRequest();
+        });
+        
+        var success_lala = function(response_data) {
+          alert("Succediendo of the " + response_data);
+        }
+
+        var error_lala  = function(response_data) {
+          alert("Erroreando con " + response_data);
+        }
+        
+      });
+    </script>
+</head>
+<body class="mi_pago">
+    <nav class="navbar navbar-default" role="navigation">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header container">
+          <a class="navbar-brand" href="#">Brand</a>
+          <a class="navbar-text pull-right" href="#">User</a>
+        </div>
+      </div><!-- /.container-fluid -->
+    </nav>
+    <button id="botonJapi">El boton</button>
+    <input type="text" id="txtPrueba">
+EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE eirg?
+</body>
+</html>
