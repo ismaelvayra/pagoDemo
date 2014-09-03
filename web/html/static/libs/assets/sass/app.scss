@@ -1,0 +1,38 @@
+/*!
+ * Roots 6.5.2
+ */
+
+$bootstrap-sass-asset-helper: false;
+@import "bootstrap/bootstrap";
+
+
+@font-face {
+  font-family: "123edi";
+  src:url("../fonts/123edi.eot");
+  src:url("../fonts/123edi.eot?#iefix") format("embedded-opentype"),
+    url("../fonts/123edi.woff") format("woff"),
+    url("../fonts/123edi.ttf") format("truetype"),
+    url("../fonts/123edi.svg#123edi") format("svg");
+  font-weight: normal;
+  font-style: normal;
+
+}
+
+@import "variables";
+
+/* ==========================================================================
+   Base
+   ========================================================================== */
+
+.mi_pago{
+  .navbar{
+    background: $base_green;
+  }
+}
+
+
+
+
+
+
+
