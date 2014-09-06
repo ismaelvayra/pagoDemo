@@ -1,19 +1,16 @@
-/*!
- * Roots 6.5.2
- */
 
 $bootstrap-sass-asset-helper: false;
 @import "bootstrap/bootstrap";
 
 
 @font-face {
-  font-family: "123edi";
-  src:url("../fonts/123edi.eot");
-  src:url("../fonts/123edi.eot?#iefix") format("embedded-opentype"),
-    url("../fonts/123edi.woff") format("woff"),
-    url("../fonts/123edi.ttf") format("truetype"),
-    url("../fonts/123edi.svg#123edi") format("svg");
-  font-weight: normal;
+  font-family: "Mipagofont";
+  src:url("../fonts/mipagofont.ttf");
+  src:url("../fonts/mipagofont.ttf?#iefix") format("embedded-opentype"),
+    url("../fonts/mipagofont.ttf") format("woff"),
+    url("../fonts/mipagofont.ttf") format("truetype"),
+    url("../fonts/mipagofont.ttf") format("svg");
+  font-weight: lighter;
   font-style: normal;
 
 }
@@ -25,9 +22,66 @@ $bootstrap-sass-asset-helper: false;
    ========================================================================== */
 
 .mi_pago{
+  font-family: "Mipagofont";
+
   .navbar{
     background: $base_green;
+
+    #logo{
+      width: 40%;
+      margin: auto;
+      padding: 25px 0px 15px 0px;
+    }
   }
+
+  .input-group{
+    width: 100%;
+    margin-top: 15px;
+    input{
+      padding: 10px;
+      width: 100%;
+      margin: 13px 0;
+      border-radius: 2px;
+      background-color: #ededed;
+      border-top: 1px solid #acacac;
+      font-size: 18px;
+      font-weight: lighter;
+      //-webkit-transition: background-color 0.2s linear 0.1s; /* For Safari 3.1 to 6.0 */
+      //transition: background-color 0.2s linear 0.1s;
+    }
+    input:focus { 
+      background-color: #FDFDFD;
+      outline: none;
+      //-webkit-transition: background-color 0.2s linear 0.1s; /* For Safari 3.1 to 6.0 */
+      //transition: background-color 0.2s linear 0.1s;
+    }
+
+  }
+
+  .title{
+    padding-left: 6%;
+    padding-right: 6%;
+  }
+
+  .container{
+    padding-left: 15%!important;
+    padding-right: 15%!important;
+  }
+
+  h1{
+    margin-top: 25px;
+    margin-bottom: 5px;
+    font-size: 40px;
+    font-weight: lighter;
+  }
+
+  h2{
+    margin-top: 5px;
+    margin-bottom: 5px;
+    font-size: 20px;
+    font-weight: lighter;
+  }
+
 }
 
 
