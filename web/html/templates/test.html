@@ -6,6 +6,7 @@
     <script src="/static/libs/jquery.js"></script>
     <script src="/static/api_calls/AjaxCallBase.js"></script>
     <script src="/static/api_calls/APIAjaxCalls.js"></script>
+    <script src="/static/cardReaderApi/CardReader.js"></script>
     <script>
       $( document ).ready(function (){
         
@@ -65,12 +66,17 @@
         var error_lala  = function(response_data) {
           $("#respuesta").html("<b style='color:red'>"+JSON.stringify(response_data)+"</b>");
         }
-        
+
+        $("#startReading").click(function() {
+            cardReader = new CardReader();
+            cardReader.startReading();
+            // JSCardReader.startReading();
+        });        
       });
     </script>
 </head>
 <body>
-  
+  <button id="startReading">Start Reading</button>
   <h2> Nuevo usuario </h2>
   <p>email: <input type="text" id="addUserName"></p>
   <p>password: <input type="text" id="addpassword"></p>

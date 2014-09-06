@@ -109,7 +109,6 @@ function DeleteUserRequest(paramt, callBackSuccess, callBackError) {
 Herencia de las clases
 */
 
-culoClass.prototype = new HTTPOperation;
 GetUserRequest.prototype = new HTTPOperation;
 AddUserRequest.prototype = new HTTPOperation;
 EditUserRequest.prototype = new HTTPOperation;
