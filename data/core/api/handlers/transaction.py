@@ -1,5 +1,3 @@
-from data.core.models.db.transaction import Transaction
-
 __author__ = 'tanito'
 
 from sqlalchemy import or_
@@ -11,7 +9,7 @@ from data.core.exceptions.exceptions import (
     APINotFound
 )
 from data.core.api.base_handlers.HandlerBaseClasses import BaseHandler
-from data.core.models.db.db_entities import db_session, User
+from data.core.models.db.db_entities import db_session, User, Transaction
 from data.core.constants.error_constants import APIErrorMsg
 
 
@@ -20,14 +18,14 @@ class TransactionHandler(BaseHandler):
     def get(self):
 
         args = {
-            'transaction_id': self.get_argument('id', None) if self.get_argument('id', None) else None,
+            'transaction_id': self.get_argument('transaction_id', None) if self.get_argument('transaction_id', None) else None,
         }
 
         if not args['transaction_id']:
             raise APIArgError(APIErrorMsg.EMPTY_ARG, "transaction_id")
 
         transaction = db_session.query(Transaction).filter(
-            User.id == args['user_id']
+            Transaction.id == args['transaction_id']
         ).first()
 
         if transaction is None:
