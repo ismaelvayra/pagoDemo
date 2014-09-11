@@ -3,7 +3,7 @@
 function CardReader(devicePlugInFunction, devicePlugOutFunction, beginReceiveFunction, endReceiveFunction, decodeFinishedFunction) {
 
 	this.startReading = function () {
-		window.JSCardReader.startReading();
+		JSCardReader.startReading();
 	}
 
 	this.stopReading = function () {
