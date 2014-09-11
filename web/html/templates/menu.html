@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="/static/libs/assets/css/main.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="/static/libs/jquery.js"></script>
+    <script src="/static/libs/assets/js/scripts.min.js"></script>
+    <script src="/static/api_calls/AjaxCallBase.js"></script>
+    <script src="/static/api_calls/APIAjaxCalls.js"></script>
+    <script>
+      $( document ).ready(function (){
+        
+        $("#botonJapi").click(function() {
+
+          var texto_prueba = $("#txtPrueba").val();
+          var req_data = {culo: texto_prueba};
+          
+          culueando = new culoClass(req_data, success_lala, error_lala);
+          culueando.sendAjaxRequest();
+        });
+        
+        var success_lala = function(response_data) {
+          alert("Succediendo of the " + response_data);
+        }
+
+        var error_lala  = function(response_data) {
+          alert("Erroreando con " + response_data);
+        }
+        
+      });
+    </script>
+</head>
+<body class="mi_pago">
+    <nav class="navbar navbar-session navbar-default" role="navigation">
+      <div class="container-fluid">
+        <img id="logo" class="img-responsive pull-left" href="#" src="./static/libs/assets/img/Logo.png"></img>
+        <span class="navbar-text pull-right user-logged">
+          <span class="glyphicon glyphicon-user"></span>
+          <a href="#">User</a>
+        </span>
+      </div><!-- /.container-fluid -->
+    </nav>
+    <div class="title">
+      <h1>Qué deseas hacer?</h1>
+    </div>
+    <ul class="nav nav-pills nav-stacked menu-ul">
+      <li><a href="#">
+            <img src="./static/libs/assets/img/menu-icon-1.png">
+            Venta manual
+            <span class="glyphicon glyphicon-chevron-right pull-right"></span>
+          </a>
+      </li>
+      <li><a href="#">
+            <img src="./static/libs/assets/img/menu-icon-2.png">
+            Venta por catálogo
+            <span class="glyphicon glyphicon-chevron-right pull-right"></span>
+          </a>
+      </li>
+      <li><a href="#">
+            <img src="./static/libs/assets/img/menu-icon-3.png">
+            Consultar ventas
+            <span class="glyphicon glyphicon-chevron-right pull-right"></span>
+          </a>
+      </li>
+      <li><a href="#">
+            <img src="./static/libs/assets/img/menu-icon-4.png">
+            Editar perfil
+            <span class="glyphicon glyphicon-chevron-right pull-right"></span>
+          </a>
+      </li>      
+    </ul>
+</body>

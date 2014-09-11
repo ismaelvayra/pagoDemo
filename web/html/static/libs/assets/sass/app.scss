@@ -23,46 +23,45 @@ $bootstrap-sass-asset-helper: false;
 
 .mi_pago{
   font-family: "Mipagofont";
-
-  .navbar{
+  input:focus, button:focus{
+    outline: 0!important;
+  }
+  a{
+    color: inherit;
+    text-decoration: none;
+  }
+  .navbar-start{
     background: $base_green;
-
     #logo{
-      width: 40%;
+      width: 50%;
       margin: auto;
-      padding: 25px 0px 15px 0px;
+      padding: 15px 0px 10px 0px;
     }
   }
-
-  .input-group{
-    width: 100%;
-    margin-top: 15px;
-    input{
-      padding: 10px;
-      width: 100%;
-      margin: 13px 0;
-      border-radius: 2px;
-      background-color: #ededed;
-      border-top: 1px solid #acacac;
-      font-size: 18px;
-      font-weight: lighter;
-      //-webkit-transition: background-color 0.2s linear 0.1s; /* For Safari 3.1 to 6.0 */
-      //transition: background-color 0.2s linear 0.1s;
+  .navbar-session{
+    background: $base_green;
+    margin-bottom: 30px;
+    #logo{
+      position: absolute;
+      height: 60%;
+      bottom: 20%;
+      vertical-align: middle;
     }
-    input:focus { 
-      background-color: #FDFDFD;
-      outline: none;
-      //-webkit-transition: background-color 0.2s linear 0.1s; /* For Safari 3.1 to 6.0 */
-      //transition: background-color 0.2s linear 0.1s;
+    .user-logged{
+        font-size: 18px;
+        color: white!important;
     }
-
+    .navbar-text{
+      margin-top: 15px;
+      margin-bottom: 10px;
+    }
   }
 
   .title{
     padding-left: 6%;
     padding-right: 6%;
+    color: $textgrey;
   }
-
   .container{
     padding-left: 15%!important;
     padding-right: 15%!important;
@@ -81,8 +80,90 @@ $bootstrap-sass-asset-helper: false;
     font-size: 20px;
     font-weight: lighter;
   }
+/* ==========================================================================
+   Input and buttons
+   ========================================================================== */
+  .input-button-size{
+    padding: 10px;
+    width: 100%;
+    margin: 13px 0;
+    border-radius: 2px;      
+  }
+  .input-button-group{
+    width: 100%;
+    margin-top: 15px;
+    input{
+      background-color: #ededed;
+      border-top: 1px solid #acacac;
+      font-size: 18px;
+      font-weight: lighter;
+      //-webkit-transition: background-color 0.2s linear 0.1s; /* For Safari 3.1 to 6.0 */
+      //transition: background-color 0.2s linear 0.1s;
+    }
+    input:focus { 
+      background-color: #FDFDFD;
+      //-webkit-transition: background-color 0.2s linear 0.1s; /* For Safari 3.1 to 6.0 */
+      //transition: background-color 0.2s linear 0.1s;
+    }
+  }
+  .button-green{
+    background: -webkit-linear-gradient($base_green, darken($base_green,10)); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient($base_green, darken($base_green,10)); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient($base_green, darken($base_green,10)); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(r$base_green, darken($base_green,10)); /* Standard syntax */
+    border: 1px solid darken($base_green,15);
+  }
+  .button-black{
+    background: -webkit-linear-gradient($darkgrey, darken($darkgrey,10)); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient($darkgrey, darken($darkgrey,10)); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient($darkgrey, darken($darkgrey,10)); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(r$darkgrey, darken($darkgrey,10)); /* Standard syntax */
+    border: 1px solid darken($darkgrey,15);
+  }
+  .button-skyblue{
+    background: -webkit-linear-gradient(lighten($skyblue,10), $skyblue); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(lighten($skyblue,10), $skyblue); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(lighten($skyblue,10), $skyblue); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(lighten($skyblue,10), $skyblue); /* Standard syntax */
+    border: 1px solid darken($skyblue,5);
+  }  
 
+/* ==========================================================================
+   Menu tabs
+   ========================================================================== */
+   .menu-ul{
+      background-color: $backgroundgrey;
+      margin-top: 40px;
+      li{
+        border-top: 1px solid darken($markupgrey,10);
+        border-bottom: 1px solid darken($markupgrey,10);
+        margin: 0!important;
+        a{
+          padding-top: 20px;
+          padding-bottom: 10px;
+          font-size: 25px;
+          img{
+            width: 13%;
+            height: auto;
+            margin-left: 5%;
+            margin-right: 5%;
+            margin-bottom: 4%;
+          }
+          span{
+            padding-top: 3%;
+          }
+          span:before{
+            color: darken($markupgrey,20)!important;
+          }
+        }
+      }
+      li+li{
+        border-top: 0;
+      }
+   }
 }
+
+
 
 
 
