@@ -11,7 +11,7 @@ from data.core.exceptions.exceptions import (
     APINotFound
 )
 from data.core.api.base_handlers.HandlerBaseClasses import BaseHandler
-from data.core.models.db.db_entities import db_session, User
+from data.core.models.db.db_entities import db_session, User, Transaction
 from data.core.constants.error_constants import APIErrorMsg
 
 
@@ -157,6 +157,10 @@ class DeleteUserHandler(BaseHandler):
                 (str(user.id) == args['id'] and args['username'] != user.username) or\
                 (str(user.id) != args['id'] and args['username'] == user.username)):
             raise APINotMatchError(APIErrorMsg.FIELDS_NOT_MATCH, "username", "id")
+
+        db_session.query(Transaction).filter(
+            Transaction.user_id == args['id']
+        ).delete()
 
         db_session.delete(user)
         db_session.commit()
