@@ -9,7 +9,6 @@ from data.core.api.handlers.user import (
 from data.core.api.handlers.transaction import (
     TransactionHandler,
     TransactionsHandler,
-    EditTransactionHandler,
     AddTransactionHandler,
     DeleteTransactionHandler,
 )
@@ -27,7 +26,6 @@ data_handlers = [
     # TRANSACTION CRUD
     (r"/api/transaction/get", TransactionHandler),
     (r"/api/transaction/add", AddTransactionHandler),
-    (r"/api/transaction/edit", EditTransactionHandler),
     (r"/api/transaction/delete", DeleteTransactionHandler),
     (r"/api/transactions", TransactionsHandler),
 ]

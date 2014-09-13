@@ -6,7 +6,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.dialects.postgresql import UUID, CHAR
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import TypeDecorator
-from sqlalchemy import Column, String, ForeignKey, Float
+from sqlalchemy import Column, String, ForeignKey, Float, Enum
 from sqlalchemy.orm import relationship, backref
 
 from data.core.models.db.db_connection import DbConnection
@@ -83,6 +83,7 @@ class Transaction(Base):
     user_id = Column(GUID(), ForeignKey('mipago_user.id'))
     concept = Column(String)
     amount = Column(Float)
+    status = Column(Enum("ok", "pending", "canceled", name="tracker_status_enum"), nullable=False)
 
     # Relationship declaration
     mipago_user = relationship('User', backref=backref('mipago_transaction', order_by=id))
@@ -97,6 +98,7 @@ class Transaction(Base):
             'user_id': str(self.user_id),
             'concept': self.concept,
             'amount': self.amount,
+            'status': self.status
         }
 
 

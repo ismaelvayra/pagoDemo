@@ -1,11 +1,11 @@
 __author__ = 'tanito'
+import json
 
 from sqlalchemy import or_
 
 from data.core.exceptions.exceptions import (
     APIArgError,
     APINotMatchError,
-    APIAlreadyExistError,
     APINotFound
 )
 from data.core.api.base_handlers.HandlerBaseClasses import BaseHandler
@@ -39,21 +39,21 @@ class TransactionsHandler(BaseHandler):
     def get(self):
 
         args = {
-            'users': list(self.get_argument('users')) if self.get_argument('users') else None,
-            'transactions': list(self.get_argument('transactions')) if self.get_argument('transactions') else None,
+            'users': json.loads(self.get_argument('users', None)) if self.get_argument('users', None) else None,
+            'transactions': json.loads(self.get_argument('transactions', None)) if self.get_argument('transactions', None) else None,
         }
 
         if args['users'] is None and args['transactions'] is None:
             raise APIArgError(APIErrorMsg.EMPTY_ARG, "users", "transactions")
 
-        transactions = [e.toDict() for e in db_session.query(Transaction).filter(
+        transactions = [e.to_dict() for e in db_session.query(Transaction).filter(
             or_(
-                Transaction.user_id in args['users'],
-                Transaction.id in args['transactions'],
+                Transaction.user_id.in_(tuple(args['users'])) if args['users'] is not None else None,
+                Transaction.id.in_(tuple(args['transactions'])) if args['transactions'] is not None else None,
             )
         ).all()]
 
-        self.write(transactions)
+        self.write(json.dumps(transactions))
 
 
 class AddTransactionHandler(BaseHandler):
@@ -68,7 +68,7 @@ class AddTransactionHandler(BaseHandler):
 
         existing_user = db_session.query(User).filter(
             User.id == args['user_id'],
-        )
+        ).first()
 
         if existing_user is None:
             raise APINotFound(APIErrorMsg.NOT_FOUND, 'user_id', args['user_id'])
@@ -77,50 +77,11 @@ class AddTransactionHandler(BaseHandler):
             user_id=args['user_id'],
             concept=args['concept'],
             amount=args['amount'],
+            status="pending",
         )
         db_session.add(new_transaction)
         db_session.commit()
         self.write(new_transaction.to_dict())
-
-
-class EditTransactionHandler(BaseHandler):
-
-    def get(self):
-
-        args = {
-            'id': self.get_argument('id'),
-            'username': self.get_argument('username', None) if self.get_argument('username', None) else None,
-            'surname': self.get_argument('surname', ""),
-            'name': self.get_argument('name', ""),
-            'password': self.get_argument('password', None) if self.get_argument('password', None) else None,
-        }
-
-        user = db_session.query(User).filter(
-            User.username == args['username'],
-            User.id != args['id'],
-        ).first()
-        if user:
-            raise APIAlreadyExistError(APIErrorMsg.ALREADY_IN_USE, "username: %s" % args['username'])
-
-        edited_user = db_session.query(User).filter(
-            User.id == args['id'],
-        ).first()
-
-        if edited_user is None:
-            raise APINotFound(APIErrorMsg.NOT_FOUND, "id: %s" % args['id'])
-
-        if args['username']:
-            edited_user.username = args['username']
-        if args['password']:
-            edited_user.password = args['password']
-
-        edited_user.surname = args['surname']
-        edited_user.name = args['name']
-
-        # if user_changed:
-        db_session.commit()
-
-        self.write(edited_user.to_dict())
 
 
 class DeleteTransactionHandler(BaseHandler):
@@ -128,28 +89,19 @@ class DeleteTransactionHandler(BaseHandler):
     def get(self):
 
         args = {
-            'id': self.get_argument('id') if self.get_argument('id') else None,
-            'username': self.get_argument('username', None) if self.get_argument('username', None) else None,
+            'transaction_id': self.get_argument('transaction_id', None) if self.get_argument('transaction_id', None) else None,
         }
 
-        if not args['username'] and not args['id']:
-            raise APIArgError(APIErrorMsg.EMPTY_ARG, "username", "id")
+        if not args['transaction_id']:
+            raise APIArgError(APIErrorMsg.EMPTY_ARG, "transaction_id")
 
-        user = db_session.query(User).filter(
-            or_(
-                User.username == args['username'],
-                User.id == args['id']
-            )
+        transaction = db_session.query(Transaction).filter(
+            Transaction.id == args['transaction_id'],
         ).first()
 
-        if user is None:
-            raise APINotFound(APIErrorMsg.NOT_FOUND, "id: %s" % args['id'])
+        if transaction is None:
+            raise APINotFound(APIErrorMsg.NOT_FOUND, "id: %s" % args['transaction_id'])
 
-        if args['id'] is not None and args['username'] is not None and (
-                (str(user.id) == args['id'] and args['username'] != user.username) or\
-                (str(user.id) != args['id'] and args['username'] == user.username)):
-            raise APINotMatchError(APIErrorMsg.FIELDS_NOT_MATCH, "username", "id")
-
-        db_session.delete(user)
+        db_session.delete(transaction)
         db_session.commit()
         self.write({'deleted': 'ok'})
