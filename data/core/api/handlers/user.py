@@ -1,3 +1,5 @@
+import json
+
 __author__ = 'tanito'
 
 from sqlalchemy import or_
@@ -48,17 +50,14 @@ class UsersHandler(BaseHandler):
     def get(self):
 
         args = {
-            'users': list(self.get_argument('users')) if self.get_argument('users') else None
+            'users': json.loads(self.get_argument('users', None)) if self.get_argument('users', None) else None,
         }
 
         if args['users'] is None:
             raise APIArgError(APIErrorMsg.EMPTY_ARG, "users")
 
-        users = [u.__dict__ for u in db_session.query(User).filter(
-            or_(
-                User.username in args['users'],
-                User.id in args['users'],
-            )
+        users = [u.to_dict() for u in db_session.query(User).filter(
+            User.id.in_(tuple(args['users'])) if args['users'] is not None else None,
         ).all()]
 
         self.write(users)

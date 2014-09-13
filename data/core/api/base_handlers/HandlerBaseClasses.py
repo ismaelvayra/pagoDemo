@@ -7,13 +7,16 @@ import json
 class BaseHandler(tornado.web.RequestHandler):
     def write(self, stuff):
         response = {}
-        if isinstance(stuff, dict):
-            if not stuff.has_key('r'):
+        if isinstance(stuff, dict) or isinstance(stuff, list):
+            if isinstance(stuff, dict) and not stuff.has_key('r'):
                 response['r'] = self.get_status()
                 response['data'] = stuff.copy()
-            if 'err_msg' in stuff:
+            if isinstance(stuff, dict) and 'err_msg' in stuff:
                 response['r'] = stuff.pop('r')
                 response['error'] = stuff.copy()
+            if isinstance(stuff, list):
+                response['r'] = self.get_status()
+                response['data'] = stuff
 
             super(BaseHandler, self).write('resp(' + json.dumps(response) + ')')
             self.set_header('Content-Type', 'application/javascript')

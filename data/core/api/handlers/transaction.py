@@ -53,7 +53,7 @@ class TransactionsHandler(BaseHandler):
             )
         ).all()]
 
-        self.write(json.dumps(transactions))
+        self.write(transactions)
 
 
 class AddTransactionHandler(BaseHandler):
