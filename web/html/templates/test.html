@@ -9,6 +9,16 @@
     <script src="/static/cardReaderApi/CardReader.js"></script>
     <script>
       $( document ).ready(function (){
+
+        plugin = function (message) {
+          $("#feedback").html(message);
+        }
+
+        plugout = function (message) {
+          $("#feedback").html(message);
+        }
+
+        cardReader = new CardReader(plugin, plugout);
         
         $("#addUser").click(function() {
 
@@ -68,14 +78,15 @@
         }
 
         $("#startReading").click(function() {
-            cardReader = new CardReader();
             cardReader.startReading();
         });
+
       });
     </script>
 </head>
 <body>
   <button id="startReading">Start Reading</button>
+  <h2 id="feedback">nada</h2>
   <h2> Nuevo usuario </h2>
   <p>email: <input type="text" id="addUserName"></p>
   <p>password: <input type="text" id="addpassword"></p>

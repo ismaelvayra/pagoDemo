@@ -1,6 +1,12 @@
-// function CardReader(devicePlugInFunction, devicePlugOutFunction, beginReceiveFunction, endReceiveFunction, decodeFinishedFunction ) {
+function CardReader(inDevicePlugInFunction, inDevicePlugOutFunction, inBeginReceiveFunction, inEndReceiveFunction, inDecodeFinishedFunction) {
 
-function CardReader(devicePlugInFunction, devicePlugOutFunction, beginReceiveFunction, endReceiveFunction, decodeFinishedFunction) {
+	// Variables privadas de la clase
+	var instance;
+	var devicePlugInFunction = inDevicePlugInFunction;
+	var devicePlugOutFunction = inDevicePlugOutFunction;
+	var beginReceiveFunction = inBeginReceiveFunction;
+	var endReceiveFunction = inEndReceiveFunction;
+	var decodeFinishedFunction = inDecodeFinishedFunction;
 
 	this.startReading = function () {
 		JSCardReader.startReading();
@@ -10,12 +16,12 @@ function CardReader(devicePlugInFunction, devicePlugOutFunction, beginReceiveFun
 		JSCardReader.stopReading();
 	}
 
-	this.eventPlugIn = function () {
-		devicePlugInFunction();
+	this.eventPlugIn = function (message) {
+		devicePlugInFunction(message);
 	}
 
-	this.eventPlugOut = function () {
-		devicePlugOutFunction();
+	this.eventPlugOut = function (message) {
+		devicePlugOutFunction(message);
 	}
 
 	this.eventBeginReceive = function () {
