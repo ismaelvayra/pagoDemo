@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="/static/libs/assets/css/main.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="/static/libs/jquery.js"></script>
+    <script src="/static/libs/assets/js/scripts.min.js"></script>
+    <script src="/static/api_calls/AjaxCallBase.js"></script>
+    <script src="/static/api_calls/APIAjaxCalls.js"></script>
+    <script>
+      $( document ).ready(function (){
+        
+        $("#botonJapi").click(function() {
+
+          var texto_prueba = $("#txtPrueba").val();
+          var req_data = {culo: texto_prueba};
+          
+          culueando = new culoClass(req_data, success_lala, error_lala);
+          culueando.sendAjaxRequest();
+        });
+        
+        var success_lala = function(response_data) {
+          alert("Succediendo of the " + response_data);
+        }
+
+        var error_lala  = function(response_data) {
+          alert("Erroreando con " + response_data);
+        }
+        
+      });
+    </script>
+</head>
+<body class="mi_pago">
+
+<!--
+    NAVBAR -->
+
+    <nav class="navbar navbar-session navbar-default" role="navigation">
+      <div class="container-fluid">
+        <img id="logo" class="img-responsive pull-left" href="#" src="./static/libs/assets/img/Logo.png"></img>
+        <span class="navbar-text pull-right user-logged">
+          <span class="glyphicon glyphicon-user"></span>
+          <a href="#">User</a>
+        </span>
+      </div><!-- /.container-fluid -->
+    </nav>
+
+<!--
+    TITLE -->
+
+    <div class="title">
+      <h1>Realizar venta</h1>
+    </div>
+
+<!--
+    OPTION MENU -->
+
+    <ul class="nav nav-pills mode-option menu-ul">
+      <li><a href="#">
+            Venta manual
+          </a>
+      </li>
+      <li><a href="#">
+            Venta por catálogo
+          </a>
+      </li>     
+    </ul>
+
+<!--
+    INPUT TYPE PROCESS -->
+      <div class="input-button-group container">
+        <input type="text" class="well input-button-size" placeholder="Monto">
+        <textarea id="sale-description" rows="4" type="text" class="well input-button-size" placeholder="Concepto"></textarea>
+      </div>    
+<!--
+    GRID PROCESS -->
+
+<!--
+    STATUS NOTIFICATION -->
+    <div class="notification-status-container">
+      <span class="notification-item col-xs-4">
+        <img id="notification-unplugged" class="notification-img notification-current" src="./static/libs/assets/img/device-unplugged.png"></img>
+      </span>
+      <span class="notification-item col-xs-4">
+        <img id="notification-plugged" class="notification-img" src="./static/libs/assets/img/device-plugged.png"></img>
+      </span>  
+      <span class="notification-item col-xs-4">    
+        <img id="notification-reading" class="notification-img" src="./static/libs/assets/img/device-reading.png"></img>
+      </span>  
+    </div>
+</body>
