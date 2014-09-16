@@ -13,3 +13,7 @@ class TestHandler(tornado.web.RequestHandler):
 class MenuHandler(tornado.web.RequestHandler):
     def get(self):
         self.render("menu.html")
+
+class SalesHandler(tornado.web.RequestHandler):
+    def get(self):
+        self.render("sales.html")
