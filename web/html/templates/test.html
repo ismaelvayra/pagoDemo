@@ -10,15 +10,27 @@
     <script>
       $( document ).ready(function (){
 
-        plugin = function (message) {
+        var plugin = function () {
+          $("#feedback").html("Enpluginado!");
+        }
+
+        var plugout = function () {
+          $("#feedback").html("Despluguinado!");
+        }
+
+        var decodeOk = function (message) {
           $("#feedback").html(message);
         }
 
-        plugout = function (message) {
-          $("#feedback").html(message);
+        var begin = function () {
+          $("#feedback").html("Reading...");
         }
 
-        cardReader = new CardReader(plugin, plugout);
+        var end = function () {}
+
+        var timeout = function () {}
+
+        cardReader = new CardReader(plugin, plugout, begin, end, decodeOk, timeout);
         
         $("#addUser").click(function() {
 

@@ -1,4 +1,4 @@
-function CardReader(inDevicePlugInFunction, inDevicePlugOutFunction, inBeginReceiveFunction, inEndReceiveFunction, inDecodeFinishedFunction) {
+function CardReader(inDevicePlugInFunction, inDevicePlugOutFunction, inBeginReceiveFunction, inEndReceiveFunction, inDecodeFinishedFunction, inTimeOutFunction) {
 
 	// Variables privadas de la clase
 	var instance;
@@ -7,6 +7,7 @@ function CardReader(inDevicePlugInFunction, inDevicePlugOutFunction, inBeginRece
 	var beginReceiveFunction = inBeginReceiveFunction;
 	var endReceiveFunction = inEndReceiveFunction;
 	var decodeFinishedFunction = inDecodeFinishedFunction;
+	var timeoutFunction = inTimeOutFunction;
 
 	this.startReading = function () {
 		JSCardReader.startReading();
@@ -16,12 +17,12 @@ function CardReader(inDevicePlugInFunction, inDevicePlugOutFunction, inBeginRece
 		JSCardReader.stopReading();
 	}
 
-	this.eventPlugIn = function (message) {
-		devicePlugInFunction(message);
+	this.eventPlugIn = function () {
+		devicePlugInFunction();
 	}
 
-	this.eventPlugOut = function (message) {
-		devicePlugOutFunction(message);
+	this.eventPlugOut = function () {
+		devicePlugOutFunction();
 	}
 
 	this.eventBeginReceive = function () {
@@ -32,7 +33,11 @@ function CardReader(inDevicePlugInFunction, inDevicePlugOutFunction, inBeginRece
 		endReceiveFunction();
 	}
 
-	this.eventDecodeFinish = function () {
-		decodeFinishedFunction();
+	this.eventDecodeFinish = function (message) {
+		decodeFinishedFunction(message);
+	}
+
+	this.eventTimeOut = function () {
+		timeoutFunction();
 	}
 }

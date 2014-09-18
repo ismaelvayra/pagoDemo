@@ -1,4 +1,4 @@
-from web.core.handlers.main_handler import MainHandler, TestHandler, SalesHandler, MenuHandler
+from web.core.handlers.rendering import MainHandler, TestHandler, SalesHandler, MenuHandler
 import tornado.web
 
 
