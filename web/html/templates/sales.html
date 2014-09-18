@@ -48,40 +48,61 @@
     </nav>
 
 <!--
-    TITLE -->
-
-    <div class="title">
-      <h1>Realizar venta</h1>
+    TITLE & OPTION MENU -->
+    <div class="upper-fixed">
+      <div class="title">
+        <h1>Realizar venta</h1>
+      </div>
+      <ul class="nav nav-pills mode-option menu-ul">
+        <li><a id="sale-simple" href="#">
+              Venta manual
+            </a>
+        </li>
+        <li><a id="sale-grid" href="#">
+              Venta por catálogo
+            </a>
+        </li>     
+      </ul>
     </div>
 
 <!--
-    OPTION MENU -->
-
-    <ul class="nav nav-pills mode-option menu-ul">
-      <li><a href="#">
-            Venta manual
-          </a>
-      </li>
-      <li><a href="#">
-            Venta por catálogo
-          </a>
-      </li>     
-    </ul>
-
-<!--
     INPUT TYPE PROCESS -->
-      <div class="input-button-group container">
-        <input type="text" class="well input-button-size" placeholder="Monto">
-        <textarea id="sale-description" rows="4" type="text" class="well input-button-size" placeholder="Concepto"></textarea>
-      </div>    
+    <div id="sale-simple-container" class="input-button-group container">
+      <input id="sale-price" type="text" class="well input-button-size" placeholder="Monto">
+      <textarea id="sale-description" rows="4" type="text" class="well input-button-size" placeholder="Concepto"></textarea>
 
-<!--
-    GRID PROCESS -->
-      <div class="btn-group">
+      <div class="btn-group" style="position:absolute;">
         <button id="left" type="button" class="btn btn-default">Left</button>
         <button id="middle" type="button" class="btn btn-default">Middle</button>
         <button id="right" type="button" class="btn btn-default">Right</button>
       </div>
+
+    </div>    
+
+<!--
+    GRID PROCESS -->
+    <div id="sale-grid-container" class="mipago-hidden">
+      <ul class="grid-items-list">
+        <li class="col-xs-6"> 
+          <div class="grid-item">
+          </div>
+        </li>
+        <li class="col-xs-6"> 
+          <div class="grid-item">
+          </div>
+        </li>
+        <li class="col-xs-6"> 
+          <div class="grid-item">
+          </div>
+        </li>
+        <li class="col-xs-6"> 
+          <div class="grid-item">
+          </div>
+        </li>
+      </ul>
+      
+    </div>
+
 
 <!--
     STATUS NOTIFICATION -->
@@ -96,4 +117,5 @@
         <img id="notification-reading" class="notification-img" src="./static/libs/assets/img/device-reading.png"></img>
       </span>  
     </div>
+
 </body>
