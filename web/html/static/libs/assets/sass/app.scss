@@ -226,6 +226,17 @@ $bootstrap-sass-asset-helper: false;
       .notification-item{
 
       }
+      .notification-status-text{
+        width: 100%;
+        font-size: 12px;
+        color: black;
+        background-color: $backgroundgrey;
+        top: -18px;
+        border-top: 1px solid darken($markupgrey,10)!important;
+        position: absolute;
+        padding-left: 10px;
+        padding-right: 10px;
+      }
       .notification-current{
         border: 4px solid $base_green!important;
         opacity: 1!important;
