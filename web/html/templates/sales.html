@@ -10,8 +10,12 @@
     <script src="/static/libs/assets/js/scripts.min.js"></script>
     <script src="/static/api_calls/AjaxCallBase.js"></script>
     <script src="/static/api_calls/APIAjaxCalls.js"></script>
+    <script src="/static/cardReaderApi/CardReader.js"></script>
     <script>
       $( document ).ready(function (){
+
+        cardReader = new CardReader(middleFunction, leftFunction, rightFunction, null, null, null);
+        cardReader.startReading();
         
         $("#botonJapi").click(function() {
 
