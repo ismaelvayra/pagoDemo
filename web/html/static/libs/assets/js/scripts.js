@@ -7,19 +7,19 @@ $( document ).ready(function (){
 		$('#notification-unplugged').addClass("notification-current");
 		$('#notification-plugged').removeClass("notification-current");
 		$('#notification-reading').removeClass("notification-current");
-	}
+	};
 
 	middleFunction = function() {
 		$('#notification-plugged').addClass("notification-current");
 		$('#notification-unplugged').removeClass("notification-current");
 		$('#notification-reading').removeClass("notification-current");
-	}
+	};
 
 	rightFunction = function() {
 		$('#notification-reading').addClass("notification-current");
 		$('#notification-plugged').removeClass("notification-current");
 		$('#notification-unplugged').removeClass("notification-current");
-	}
+	};
 
 	$("#left").click(function() {
 		leftFunction();
@@ -60,7 +60,7 @@ $( document ).ready(function (){
 
 	$('#login-name-input').focus(function() {
 		var pos = $('#login-name-input').position();
-		$('body,html').css("top", "-" + pos.top - 10 + "px" );
+		$('body,html').delay( 800 ).css("top", "-" + pos.top - 10 + "px" );
 	});
 
 	$('#login-name-input').focusout(function() {
@@ -98,7 +98,30 @@ $( document ).ready(function (){
 		$('body,html').css("top", "0px" );
 		$(".upper-fixed").removeClass("mipago-hidden");
 	});
+
+//---------------------------------------------------
+//		LOGIN HANDLING
+//---------------------------------------------------
+	var loginSuccess = function (loginResponse) {
+		alert("ok!");
+	};
+
+	var loginFailed = function (loginResponse) {
+		alert("caca!");
+	};
+
+	$("#login-button").click(function() {
+		var user = $('#login-name-input').val();
+		if(user !== "") {
+			var login_request = new GetUserRequest({username:user}, loginSuccess, loginFailed);
+			login_request.sendAjaxRequest();
+		}
+	});
+
+
 });
+
+
 
 
 
