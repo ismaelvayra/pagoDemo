@@ -19,3 +19,8 @@ class MenuHandler(tornado.web.RequestHandler):
 class SalesHandler(tornado.web.RequestHandler):
     def get(self):
         self.render("sales.html")
+
+
+class TransactionHandler(tornado.web.RequestHandler):
+    def get(self):
+        self.render("transaction.html")

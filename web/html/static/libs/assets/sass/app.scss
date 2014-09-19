@@ -237,11 +237,18 @@ $bootstrap-sass-asset-helper: false;
         padding-left: 10px;
         padding-right: 10px;
       }
-      .notification-current{
-        border: 4px solid $base_green!important;
+      .notification-current-base{        
         opacity: 1!important;
         -webkit-transition: opacity 0.3s ease-in-out; /* For Safari 3.1 to 6.0 */
         transition: opacity 0.3s ease-in-out;
+      }
+      .notification-current-green{
+        border: 4px solid $base_green!important;
+        -webkit-transition: border-width 0.3s ease-in-out; /* For Safari 3.1 to 6.0 */
+        transition: border-width 0.3s ease-in-out;
+      }
+      .notification-current-red{
+        border: 4px solid #D54A43!important;
         -webkit-transition: border-width 0.3s ease-in-out; /* For Safari 3.1 to 6.0 */
         transition: border-width 0.3s ease-in-out;
       }
