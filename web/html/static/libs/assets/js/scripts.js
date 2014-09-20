@@ -41,6 +41,8 @@ $( document ).ready(function (){
 		$('#notification-reading').addClass("notification-current-base notification-current-green");
 		$('#notification-plugged').removeClass("notification-current-base notification-current-red notification-current-green");
 		$('#notification-unplugged').removeClass("notification-current-base");
+		$("#sale-confirmation").removeClass("mipago-hidden");
+		$("#notification-content").removeClass("mipago-hidden");
 	};
 
 	$("#left").click(function() {
@@ -100,14 +102,19 @@ $( document ).ready(function (){
 	});
 
 	$('#login-name-input').focusout(function() {
-		setTimeout(function() {
-			$('body').css("top", "0px" );
-		}, delayTime);
+		if($('#login-password-input').hasClass("inputActive")){
+	
+		}
+		else{
+			setTimeout(function() {
+				$('body').css("top", "0px" );
+			}, delayTime);			
+		}
 	});
 
 //password field
 	$('#login-password-input').focus(function() {
-
+		$('#login-password-input').addClass("inputActive");
 		if (($('body').position().top) !== 0){
 			setTimeout(function() {
 			var pos = $('#login-password-input').position();
@@ -122,10 +129,10 @@ $( document ).ready(function (){
 			$("#login-password-result").text("");
 			$("#login-name-result").text("");			
 		}
-		
 	});
 
 	$('#login-password-input').focusout(function() {
+		$('#login-password-input').removeClass("inputActive");
 		setTimeout(function() {
 			$('body,html').css("top", "0px" );
 		}, delayTime);

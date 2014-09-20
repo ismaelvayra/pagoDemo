@@ -288,6 +288,41 @@ $bootstrap-sass-asset-helper: false;
         transition: border-width 0.3s ease-in-out;
       }
    }
+   .sale-confirmation-container{
+      z-index: 20;
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background-color: black;
+      opacity: 0.5;
+      display: block;
+      top: 0;
+   }
+   #notification-content{
+      width: 80%;
+      left: 10%;
+      height: 60%;
+      top: 20%;
+      background-color: white;
+      border-radius: 4px;
+      position: fixed;
+      display: block;
+      z-index: 21;
+      opacity: 1;
+   }
+   #notification-content button{
+      display: inline;
+      width: 40%!important;
+      position: absolute;
+      bottom: 5%;
+   }
+   #sale-button-cancel{
+      left: 7%;
+   }
+   #sale-button-send{
+      right: 7%;
+   }
+
    #sale-simple-container, #sale-grid-container{
       top: 200px;
       width: 100%;
