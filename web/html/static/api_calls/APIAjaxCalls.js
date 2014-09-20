@@ -6,7 +6,7 @@ de modo que se semplifica el proceso.
 // var data_url = "http://enzoalberdi.zapto.org:9000/";
 var web_url = "http://enzoalberdi.zapto.org:9999/";
 
-var data_url = "http://192.168.0.117:9000/";
+var data_url = "http://192.168.1.6:9000/";
 // var web_url = "http://localhost:9999/";
 
 var baseParameters = function() {

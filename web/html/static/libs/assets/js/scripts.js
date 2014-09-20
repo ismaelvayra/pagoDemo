@@ -167,12 +167,21 @@ function getParameterByName(name) {
 }
 
 function startSaleMode(){
+	var name = getParameterByName("user");
+	$("#navbar-username").text(name);
 	if (getParameterByName("mode") === "manual"){
 		$("#sale-simple").trigger("click");
 	}
 	else{
 		$("#sale-grid").trigger("click");
 	}
+}
+
+function addUserToHeader(){
+	var name = getParameterByName("user");
+	$("#navbar-username").text(name);
+	$("#manual-mode-link").attr("href", "sales?mode=manual&user="+name);
+	$("#grid-mode-link").attr("href", "sales?mode=grid&user="+name);
 }
 
 
