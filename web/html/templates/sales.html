@@ -15,11 +15,10 @@
       $( document ).ready(function (){
 
         cardReader = new CardReader(middleFunction, leftFunction, rightFunction, null, null, null);
-        cardReader.startReading();
-
-        
+        cardReader.startReading();        
       });
     </script>
+
 </head>
 <body class="mi_pago">
 
@@ -97,7 +96,7 @@
     STATUS NOTIFICATION -->
     <div class="notification-status-container">
       <div class="notification-status-text">
-        Texto de prueba
+        <p></p>
       </div>
       <span class="notification-item col-xs-4">
         <img id="notification-unplugged" class="notification-img" src="./static/libs/assets/img/device-unplugged.png"></img>
@@ -111,3 +110,12 @@
     </div>
 
 </body>
+
+    <script>
+      window.onload = function() {
+        startSaleMode();
+      };
+    </script>
+
+
+
