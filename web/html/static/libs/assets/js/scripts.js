@@ -3,18 +3,21 @@
 //---------------------------------------------------
 $( document ).ready(function (){
 	delayTime = 100;
+	colorRed = "rgb(86, 200, 176)";
+	colorGreen = "#D54A43";
 
 	leftFunction = function() {
-		$(".notification-status-text").find("p").css("color", "#D54A43");
+		$(".notification-status-text").find("p").css("color", colorGreen);
 		$(".notification-status-text").find("p").text("El dispositivo no esta conectado");
-		$('#notification-unplugged').addClass("notification-current-base notification-current-red");
+		$('#notification-unplugged').addClass("notification-current-base notification-current-red device-unplugged");
 		$('#notification-plugged').removeClass("notification-current-base notification-current-red notification-current-green");
 		$('#notification-reading').removeClass("notification-current-base");
 	};
 
 	middleFunction = function() {
+		$('#notification-unplugged').removeClass("device-unplugged");
 		if(($('#sale-price').val() !== "") && ($('#sale-description').val() !== "")){
-			$(".notification-status-text").find("p").css("color", "rgb(86, 200, 176)");
+			$(".notification-status-text").find("p").css("color", colorRed);
 			$(".notification-status-text").find("p").text("Dispositivo pronto para realizar lectura de tarjeta");			
 			$('#notification-plugged').removeClass("notification-current-red");
 			$('#notification-plugged').addClass("notification-current-base notification-current-green");
@@ -22,8 +25,8 @@ $( document ).ready(function (){
 			$('#notification-reading').removeClass("notification-current-base");
 		}
 		else{
-			$(".notification-status-text").find("p").css("color", "#D54A43");
-			$(".notification-status-text").find("p").text("Los campos monto y concepto no se han completado correctamente");			
+			$(".notification-status-text").find("p").css("color", colorGreen);
+			$(".notification-status-text").find("p").text("Los campos monto y concepto deben ingresarse");			
 			$('#notification-plugged').removeClass("notification-current-green");
 			$('#notification-plugged').addClass("notification-current-base notification-current-red");
 			$('#notification-unplugged').removeClass("notification-current-base");
@@ -33,7 +36,7 @@ $( document ).ready(function (){
 	};
 
 	rightFunction = function() {
-		$(".notification-status-text").find("p").css("color", "rgb(86, 200, 176)");
+		$(".notification-status-text").find("p").css("color", colorRed);
 		$(".notification-status-text").find("p").text("Realizando lectura...");
 		$('#notification-reading').addClass("notification-current-base notification-current-green");
 		$('#notification-plugged').removeClass("notification-current-base notification-current-red notification-current-green");
@@ -48,10 +51,18 @@ $( document ).ready(function (){
 		middleFunction();
 	});
 	$("#sale-price").keydown(function() {
-		middleFunction();
+		if ($('#notification-unplugged').hasClass("device-unplugged")){
+		}
+		else{
+			middleFunction();
+		}
 	});
 	$("#sale-description").keydown(function() {
-		middleFunction();
+		if ($('#notification-unplugged').hasClass("device-unplugged")){
+		}
+		else{
+			middleFunction();
+		}
 	});
 
 	$("#right").click(function() {
@@ -83,19 +94,35 @@ $( document ).ready(function (){
 
 	$('#login-name-input').focus(function() {
 		var pos = $('#login-name-input').position();
-		$('body,html').css("top", "-" + pos.top - 10 + "px" );
+		$('body').css("top", "-" + pos.top - 1 + "px" );
+		$("#login-password-result").text("");
+		$("#login-name-result").text("");		
 	});
 
 	$('#login-name-input').focusout(function() {
 		setTimeout(function() {
-			$('body,html').css("top", "0px" );
+			$('body').css("top", "0px" );
 		}, delayTime);
 	});
 
 //password field
 	$('#login-password-input').focus(function() {
-		var pos = $('#login-password-input').position();
-		$('body,html').css("top", "-" + pos.top - 10 + "px" );
+
+		if (($('body').position().top) !== 0){
+			setTimeout(function() {
+			var pos = $('#login-password-input').position();
+				$('body').css("top", "-" + pos.top - 1 + "px" );
+				$("#login-password-result").text("");
+				$("#login-name-result").text("");
+			}, delayTime + 100);
+		}
+		else{
+			var pos = $('#login-password-input').position();
+			$('body').css("top", "-" + pos.top - 1 + "px" );
+			$("#login-password-result").text("");
+			$("#login-name-result").text("");			
+		}
+		
 	});
 
 	$('#login-password-input').focusout(function() {
@@ -107,7 +134,7 @@ $( document ).ready(function (){
 //price field
 	$('#sale-price').focus(function() {
 		$('body,html').css("top", "-220px" );
-		$(".upper-fixed").addClass("mipago-hidden");
+		$(".upper-fixed").addClass("mipago-hidden");		
 	});
 
 	$('#sale-price').focusout(function() {
@@ -137,11 +164,19 @@ $( document ).ready(function (){
 //---------------------------------------------------
 	var loginSuccess = function (loginResponse) {
 		var user = loginResponse.data.username;
-		window.location.href = "/menu?user=" + user;
+		if ($('#login-password-input').val() === ""){
+			$("#login-password-result").text("No has ingresado contraseña");
+		}
+		else{
+			window.location.href = "/menu?user=" + user;
+		}
 	};
 
 	var loginFailed = function (loginResponse) {
-		alert("caca!");
+		$("#login-name-result").text("Nombre de usuario incorrecto");
+		if ($('#login-password-input').val() === ""){
+			$("#login-password-result").text("No has ingresado contraseña");
+		}
 	};
 
 	$("#login-button").click(function() {
