@@ -35,18 +35,35 @@ $( document ).ready(function (){
 
 	};
 
-	rightFunction = function() {		
-		$(".notification-status-text").find("p").css("color", colorRed);
-		$(".notification-status-text").find("p").text("Realizando lectura...");
-		$('#notification-reading').addClass("notification-current-base notification-current-green");
-		$('#notification-plugged').removeClass("notification-current-base notification-current-red notification-current-green");
-		$('#notification-unplugged').removeClass("notification-current-base");
-		setTimeout(function() {
-			$("#sale-confirmation").removeClass("mipago-hidden");
-			$("#confirmation-content").removeClass("mipago-hidden");
-			loadSaleData();
-			$(".notification-status-text").find("p").text("");
-		}, delayTime*15);	
+	rightFunction = function() {
+		if(($('#sale-price').val() !== "") && ($('#sale-description').val() !== "")){		
+			$(".notification-status-text").find("p").css("color", colorRed);
+			$(".notification-status-text").find("p").text("Realizando lectura");
+			$('#notification-reading').addClass("notification-current-base notification-current-green");
+			$('#notification-plugged').removeClass("notification-current-base notification-current-red notification-current-green");
+			$('#notification-unplugged').removeClass("notification-current-base");
+			
+			//reading animation
+			setTimeout(function() {
+				$(".notification-status-text").find("p").text("Realizando lectura.");
+			}, delayTime*3);
+			setTimeout(function() {
+				$(".notification-status-text").find("p").text("Realizando lectura..");
+			}, delayTime*6);
+			setTimeout(function() {
+				$(".notification-status-text").find("p").text("Realizando lectura...");
+			}, delayTime*9);
+			setTimeout(function() {
+				$(".notification-status-text").find("p").text("Realizando lectura....");
+			}, delayTime*12);
+
+			setTimeout(function() {
+				$("#sale-confirmation").removeClass("mipago-hidden");
+				$("#confirmation-content").removeClass("mipago-hidden");
+				loadSaleData();
+				$(".notification-status-text").find("p").text("");
+			}, delayTime*15);
+		}	
 	};
 
 	$("#left").click(function() {
@@ -222,6 +239,10 @@ $( document ).ready(function (){
 		$("#confirmation-content" ).append( "<p id='transaction-id' style='margin-top:20px;'>ID de transacción :  1234-DC12</p>" );
 		$("#confirmation-content" ).append( "<p id='transaction-fees'>Cuotas :  " + fees_number + "</p>" );
 		$("#confirmation-content" ).append( "<button id='transaction-completed' class='btn btn-primary btn-lg input-button-size button-green'>Finalizar</p>" );
+		$('#transaction-completed').click(function() {
+			var name = getParameterByName("user");
+			window.location.href = "/menu?user=" + name;
+		});	
 	});	
 });
 
@@ -248,7 +269,7 @@ function startSaleMode(){
 	}
 }
 
-function addUserToHeader(){
+function addUserToMenuHeader(){
 	var name = getParameterByName("user");
 	$("#navbar-username").text(name);
 	$("#manual-mode-link").attr("href", "sales?mode=manual&user="+name);

@@ -192,10 +192,11 @@ $bootstrap-sass-asset-helper: false;
         white-space: nowrap;
         width: 50%;
         height: 100%;
-        background-color: $backgroundgrey;
+        background-color: white;
         a{
           text-align: center;
           font-size: 18px!important;
+          color: darken($backgroundgrey,20);
         }
 
       }
@@ -223,7 +224,8 @@ $bootstrap-sass-asset-helper: false;
    STATUS NOTIFICATION and SALES STYLE
    ========================================================================== */
    .sale-mode-active, #sale-simple:hover, #sale-grid:hover{
-     background-color: darken($backgroundgrey,10);
+     color: black!important;
+     background-color: $backgroundgrey;
      border-radius: 0;
    }
 
@@ -379,7 +381,13 @@ $bootstrap-sass-asset-helper: false;
      padding: 20px;
      width: 100%;
      height: 120px;
-     background-color: darken($backgroundgrey,20); 
+     background-color: $backgroundgrey;
+     border-radius: 4px;
+     img{
+       max-width: 100%;
+       height: auto;
+       border-radius: 3px;  
+     } 
    } 
 }
 
