@@ -1,7 +1,8 @@
-from data.core.exceptions.exceptions import APIError
-
 import tornado.web
+from tornado.web import MissingArgumentError
 import json
+
+from data.core.exceptions.exceptions import APIError
 
 
 class BaseHandler(tornado.web.RequestHandler):
@@ -33,7 +34,7 @@ class BaseHandler(tornado.web.RequestHandler):
                      'r': 500}
             self.set_header('Content-Type', 'application/javascript')
             self.finish(stuff)
-        elif isinstance(kwargs['exc_info'][1], AttributeError):
+        elif isinstance(kwargs['exc_info'][1], (AttributeError, MissingArgumentError)):
             stuff = {'err_msg': kwargs['exc_info'][1].log_message, 'values': kwargs['exc_info'][1].arg_name,
                      'r': kwargs['exc_info'][1].status_code}
             self.set_header('Content-Type', 'application/javascript')

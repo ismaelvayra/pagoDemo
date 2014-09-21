@@ -64,6 +64,7 @@ class AddTransactionHandler(BaseHandler):
             'user_id': self.get_argument('user_id'),
             'concept': self.get_argument('concept'),
             'amount': self.get_argument('amount'),
+            'feeds': self.get_argument('feeds'),
         }
 
         existing_user = db_session.query(User).filter(
@@ -77,6 +78,7 @@ class AddTransactionHandler(BaseHandler):
             user_id=args['user_id'],
             concept=args['concept'],
             amount=args['amount'],
+            feeds=args['feeds'],
             status="pending",
         )
         db_session.add(new_transaction)

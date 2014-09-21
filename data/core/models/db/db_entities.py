@@ -1,3 +1,5 @@
+import datetime
+
 __author__ = 'tanito'
 
 import uuid
@@ -5,8 +7,8 @@ import uuid
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.dialects.postgresql import UUID, CHAR
 from sqlalchemy.orm import sessionmaker
-from sqlalchemy import TypeDecorator
-from sqlalchemy import Column, String, ForeignKey, Float, Enum
+from sqlalchemy import TypeDecorator, DateTime
+from sqlalchemy import Column, String, ForeignKey, Float, Enum, Integer
 from sqlalchemy.orm import relationship, backref
 
 from data.core.models.db.db_connection import DbConnection
@@ -80,9 +82,11 @@ class Transaction(Base):
     __tablename__ = "mipago_transaction"
 
     id = Column(GUID(), default=uuid.uuid4, nullable=False, unique=True, primary_key=True)
+    created = Column(DateTime, default=datetime.datetime.now())
     user_id = Column(GUID(), ForeignKey('mipago_user.id'))
     concept = Column(String)
     amount = Column(Float)
+    feeds = Column(Integer)
     status = Column(Enum("ok", "pending", "canceled", name="tracker_status_enum"), nullable=False)
 
     # Relationship declaration
@@ -96,6 +100,8 @@ class Transaction(Base):
         return {
             'id': str(self.id),
             'user_id': str(self.user_id),
+            'created': datetime.datetime.strftime(self.created, "%H:%M %d/%m/%Y"),
+            'feeds': self.feeds,
             'concept': self.concept,
             'amount': self.amount,
             'status': self.status
