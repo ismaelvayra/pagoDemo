@@ -241,15 +241,15 @@ $bootstrap-sass-asset-helper: false;
       }
       .notification-status-text{
         width: 100%;
-        font-size: 12px;
+        font-size: 14px;
         color: black;
         background-color: $backgroundgrey;
-        top: -18px;
+        top: -22px;
         border-top: 1px solid darken($markupgrey,10)!important;
         position: absolute;
         padding-left: 10px;
         padding-right: 10px;
-        height: 17px;
+        height: 21px;
         p{
           margin-bottom: 0px;
         }
@@ -298,29 +298,67 @@ $bootstrap-sass-asset-helper: false;
       display: block;
       top: 0;
    }
-   #notification-content{
+   #confirmation-content{
       width: 80%;
       left: 10%;
-      height: 60%;
-      top: 20%;
+      height: 80%;
+      top: 10%;
       background-color: white;
       border-radius: 4px;
       position: fixed;
       display: block;
       z-index: 21;
       opacity: 1;
+      padding: 1% 2%;
+
+      h1{
+        font-size: 25px;
+      }
+      h2{
+        font-size: 20px;
+        padding-left: 10px;
+        margin-top: 10px;
+        margin-bottom: 2px;
+      }
+      p{
+        font-size: 16px;
+        padding-left: 20px;
+        margin-bottom: 0px;
+      }
+      #sale-fees{
+        padding-left: 10px;
+        padding-right: 10px;
+        .col-xs-2{
+          padding: 2px;
+          margin-bottom: 4px;
+          display: inline-block;
+        }
+        button {
+          position: relative;
+          width: 100%;
+          padding: 6px 12px;
+          border-radius: 2px;
+          background-color: darken($backgroundgrey,20);
+          border: 0px;
+        }
+        .button-active{
+        }
+      }
    }
-   #notification-content button{
+   #sale-button-cancel, #sale-button-send, #transaction-completed{
       display: inline;
-      width: 40%!important;
+      width: 40%;
       position: absolute;
-      bottom: 5%;
+      bottom: 3%;
    }
    #sale-button-cancel{
       left: 7%;
    }
    #sale-button-send{
       right: 7%;
+   }
+   #transaction-completed{
+      right: 30%;
    }
 
    #sale-simple-container, #sale-grid-container{

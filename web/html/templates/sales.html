@@ -96,7 +96,7 @@
     STATUS NOTIFICATION -->
     <div class="notification-status-container">
       <div class="notification-status-text">
-        <p></p>
+        <b><p></p></b>
       </div>
       <span class="notification-item col-xs-4">
         <img id="notification-unplugged" class="notification-img" src="./static/libs/assets/img/device-unplugged.png"></img>
@@ -110,10 +110,34 @@
     </div>
 
 <!--
-    STATUS NOTIFICATION -->
+    SALE CONFIRMATION -->
     <div id="sale-confirmation" class="sale-confirmation-container mipago-hidden">
     </div>
-    <div id="notification-content" class="mipago-hidden">
+    <div id="confirmation-content" class="mipago-hidden">
+        <h1> Confimación de la venta </h1>
+          <h2> Datos de la venta </h2>
+            <p id="confirmation-sale-price"> Precio: $322 </p>
+            <p id="confirmation-sale-description"> Descripcion: Lorem ipsum </p>
+            <p id="confirmation-sale-saler"> Vendedor: miPago - Demo </p>
+            <p> RUC: 12344321 </p>
+          <h2> Datos de la tarjeta </h2>
+            <p id="confirmation-sale-buyer"> ID comprador: Facundo Alegre </p>
+            <p id="confirmation-sale-cardID"> ID tarjeta: xxx-xxxx-xxx-3124 </p>
+          <h2 id="sale-fees-title"> Seleccionar cuotas </h2>
+            <div id="sale-fees">
+              <div class="col-xs-2"><button type="button" value="1" class="btn btn-primary btn-lg button-active button-green">1</button></div>
+              <div class="col-xs-2"><button type="button" value="2" class="btn btn-primary btn-lg">2</button></div>
+              <div class="col-xs-2"><button type="button" value="3" class="btn btn-primary btn-lg">3</button></div>
+              <div class="col-xs-2"><button type="button" value="4" class="btn btn-primary btn-lg">4</button></div>
+              <div class="col-xs-2"><button type="button" value="5" class="btn btn-primary btn-lg">5</button></div>
+              <div class="col-xs-2"><button type="button" value="6" class="btn btn-primary btn-lg">6</button></div>
+              <div class="col-xs-2"><button type="button" value="7" class="btn btn-primary btn-lg">7</button></div>
+              <div class="col-xs-2"><button type="button" value="8" class="btn btn-primary btn-lg">8</button></div>
+              <div class="col-xs-2"><button type="button" value="9" class="btn btn-primary btn-lg">9</button></div>
+              <div class="col-xs-2"><button type="button" value="10" class="btn btn-primary btn-lg">10</button></div>
+              <div class="col-xs-2"><button type="button" value="11" class="btn btn-primary btn-lg">11</button></div>
+              <div class="col-xs-2"><button type="button" value="12" class="btn btn-primary btn-lg">12</button></div>
+            </div>
         <button id="sale-button-cancel" type="button" class="btn btn-primary btn-lg input-button-size button-black">Cancelar</button>
         <button id="sale-button-send" type="button" class="btn btn-primary btn-lg input-button-size button-green">Aceptar</button>
       </div>

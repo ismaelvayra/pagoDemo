@@ -35,14 +35,18 @@ $( document ).ready(function (){
 
 	};
 
-	rightFunction = function() {
+	rightFunction = function() {		
 		$(".notification-status-text").find("p").css("color", colorRed);
 		$(".notification-status-text").find("p").text("Realizando lectura...");
 		$('#notification-reading').addClass("notification-current-base notification-current-green");
 		$('#notification-plugged').removeClass("notification-current-base notification-current-red notification-current-green");
 		$('#notification-unplugged').removeClass("notification-current-base");
-		$("#sale-confirmation").removeClass("mipago-hidden");
-		$("#notification-content").removeClass("mipago-hidden");
+		setTimeout(function() {
+			$("#sale-confirmation").removeClass("mipago-hidden");
+			$("#confirmation-content").removeClass("mipago-hidden");
+			loadSaleData();
+			$(".notification-status-text").find("p").text("");
+		}, delayTime*15);	
 	};
 
 	$("#left").click(function() {
@@ -102,14 +106,14 @@ $( document ).ready(function (){
 	});
 
 	$('#login-name-input').focusout(function() {
-		if($('#login-password-input').hasClass("inputActive")){
-	
-		}
-		else{
-			setTimeout(function() {
-				$('body').css("top", "0px" );
-			}, delayTime);			
-		}
+		setTimeout(function() {
+			if($('#login-password-input').hasClass("inputActive")){
+		
+			}
+			else{
+				$('body').css("top", "0px" );		
+			}
+		}, delayTime);	
 	});
 
 //password field
@@ -193,9 +197,34 @@ $( document ).ready(function (){
 			login_request.sendAjaxRequest();
 		}
 	});
+//---------------------------------------------------
+//		SALE CONFIRMATION FUNCTIONS
+//---------------------------------------------------
+	$('#sale-fees > div > button').click(function() {
+		$('#sale-fees > div >button').removeClass("button-active button-green");
+		$(this).addClass("button-active button-green");
+	});
 
+	$('#sale-button-cancel').click(function() {
+		$("#sale-confirmation").addClass("mipago-hidden");
+		$("#confirmation-content").addClass("mipago-hidden");
+		$('#sale-fees > div >button').removeClass("button-active button-green");
+		middleFunction();		
+	});	
 
+	$('#sale-button-send').click(function() {
+		$("#confirmation-content > h1").text("Venta completada");
+		var fees_number = $(".button-active").attr("value");
+		$("#sale-fees").remove();
+		$("#sale-fees-title").remove();
+		$("#sale-button-send").remove();
+		$("#sale-button-cancel").remove();
+		$("#confirmation-content" ).append( "<p id='transaction-id' style='margin-top:20px;'>ID de transacción :  1234-DC12</p>" );
+		$("#confirmation-content" ).append( "<p id='transaction-fees'>Cuotas :  " + fees_number + "</p>" );
+		$("#confirmation-content" ).append( "<button id='transaction-completed' class='btn btn-primary btn-lg input-button-size button-green'>Finalizar</p>" );
+	});	
 });
+
 
 
 //---------------------------------------------------
@@ -224,6 +253,11 @@ function addUserToHeader(){
 	$("#navbar-username").text(name);
 	$("#manual-mode-link").attr("href", "sales?mode=manual&user="+name);
 	$("#grid-mode-link").attr("href", "sales?mode=grid&user="+name);
+}
+
+function loadSaleData(){
+	$("#confirmation-sale-price").text("Precio :  $ " + $("#sale-price").val());
+	$("#confirmation-sale-description").text("Descripción :  " + $("#sale-description").val());
 }
 
 
