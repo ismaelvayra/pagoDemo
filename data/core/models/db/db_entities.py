@@ -86,7 +86,7 @@ class Transaction(Base):
     user_id = Column(GUID(), ForeignKey('mipago_user.id'))
     concept = Column(String)
     amount = Column(Float)
-    feeds = Column(Integer)
+    fees = Column(Integer)
     status = Column(Enum("ok", "pending", "canceled", name="tracker_status_enum"), nullable=False)
 
     # Relationship declaration
@@ -101,7 +101,7 @@ class Transaction(Base):
             'id': str(self.id),
             'user_id': str(self.user_id),
             'created': datetime.datetime.strftime(self.created, "%H:%M %d/%m/%Y"),
-            'feeds': self.feeds,
+            'fees': self.fees,
             'concept': self.concept,
             'amount': self.amount,
             'status': self.status
