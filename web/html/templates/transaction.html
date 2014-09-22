@@ -13,6 +13,9 @@
 
 </head>
 <body class="mi_pago">
+
+<!--
+    HEADER -->
     <nav class="navbar navbar-session navbar-default" role="navigation">
       <div class="container-fluid">
         <img id="logo" class="img-responsive pull-left" href="#" src="./static/libs/assets/img/Logo.png"></img>
@@ -22,12 +25,29 @@
         </span>
       </div><!-- /.container-fluid -->
     </nav>
+
+<!--
+    TITLE -->
     <div class="title">
-      <h1>Lectura de tarjeta realizada</h1>
+      <h1>Registro de movimientos</h1>
     </div>
-    <ul class="nav nav-pills nav-stacked menu-ul">
+
+<!--
+    LIST OF TRANSACTIONS -->
+    <ul id="transactions-container" class="nav nav-pills nav-stacked menu-ul">
       <li>
-        Venta manual
-      </li>     
+        <span id="transaction-date" class="col-xs-3">date</span>
+        <span id="transaction-id" class="col-xs-3">id</span>
+        <span id="transaction-price" class="col-xs-3">price</span>
+        <span id="transaction-state" class="col-xs-3">state</span>
+        <span id="transaction-desc" class="col-xs-12">desc</span>
+      </li>
+      <li>
+        <span id="transaction-date" class="col-xs-3">date</span>
+        <span id="transaction-id" class="col-xs-3">id</span>
+        <span id="transaction-price" class="col-xs-3">price</span>
+        <span id="transaction-state" class="col-xs-3">state</span>
+        <span id="transaction-desc" class="col-xs-12">desc</span>
+      </li>       
     </ul>
 </body>

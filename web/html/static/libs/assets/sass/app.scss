@@ -161,22 +161,34 @@ $bootstrap-sass-asset-helper: false;
         border-top: 1px solid darken($markupgrey,10);
         border-bottom: 1px solid darken($markupgrey,10);
         margin: 0!important;
-        a{
-          padding-top: 20px;
+
+        a{         
+          padding-top: 30px;
           padding-bottom: 10px;
           font-size: 25px;
+          height: 100px;
           img{
             width: 13%;
             height: auto;
             margin-left: 5%;
             margin-right: 5%;
-            margin-bottom: 4%;
+            max-height: 100%;
+            max-width: 150px;
           }
           span{
-            padding-top: 3%;
+            position: absolute;
+            top: 40%;
+            right: 5%;
           }
           span:before{
             color: darken($markupgrey,20)!important;
+          }
+          p{
+            position: absolute;
+            left: 27%;
+            bottom: 10%;
+            font-size: 16px;
+            line-height: 16px;
           }
         }
       }
@@ -194,6 +206,10 @@ $bootstrap-sass-asset-helper: false;
         height: 100%;
         background-color: white;
         a{
+          height: auto;
+          padding-top: 20px;
+          padding-bottom: 10px;
+          font-size: 25px;
           text-align: center;
           font-size: 18px!important;
           color: darken($backgroundgrey,20);
@@ -389,6 +405,30 @@ $bootstrap-sass-asset-helper: false;
        border-radius: 3px;  
      } 
    } 
+
+/* ==========================================================================
+   TRANSACTIONS TEMPLATE
+   ========================================================================== */
+    #transactions-container{
+      padding-left: 5%;
+      padding-right: 5%;
+      background-color: white!important;
+
+      li{
+        padding: 5px 2%;
+        margin-bottom: 10px;
+        display: inline-block;
+        width: 100%;
+        border: 0px;
+        background-color: $backgroundgrey;
+        span{
+          background-color: darken($backgroundgrey,5);
+          border: 2px solid $backgroundgrey;
+          font-size: 16px;
+        }
+      }
+   }
+
 }
 
 

@@ -35,6 +35,22 @@ $( document ).ready(function (){
 
 	};
 
+	dataReception = function(cardData){
+		if(($('#sale-price').val() !== "") && ($('#sale-description').val() !== "")){
+			var cardUserName;
+			var cardID;
+			var temp = cardData.split("----");
+			cardUserName = temp[0];
+			cardID = temp[1];
+			setTimeout(function() {
+				$("#sale-confirmation").removeClass("mipago-hidden");
+				$("#confirmation-content").removeClass("mipago-hidden");
+				loadSaleData(cardUserName, cardID);
+				$(".notification-status-text").find("p").text("");
+			}, delayTime*15);
+		}
+	};
+
 	rightFunction = function() {
 		if(($('#sale-price').val() !== "") && ($('#sale-description').val() !== "")){		
 			$(".notification-status-text").find("p").css("color", colorRed);
@@ -56,13 +72,9 @@ $( document ).ready(function (){
 			setTimeout(function() {
 				$(".notification-status-text").find("p").text("Realizando lectura....");
 			}, delayTime*12);
-
-			setTimeout(function() {
-				$("#sale-confirmation").removeClass("mipago-hidden");
-				$("#confirmation-content").removeClass("mipago-hidden");
-				loadSaleData();
-				$(".notification-status-text").find("p").text("");
-			}, delayTime*15);
+		}
+		else{
+			
 		}	
 	};
 
@@ -192,11 +204,12 @@ $( document ).ready(function (){
 //---------------------------------------------------
 	var loginSuccess = function (loginResponse) {
 		var user = loginResponse.data.username;
+		var user_id = loginResponse.data.id;
 		if ($('#login-password-input').val() === ""){
 			$("#login-password-result").text("No has ingresado contraseña");
 		}
 		else{
-			window.location.href = "/menu?user=" + user;
+			window.location.href = "/menu?user=" + user + "&userid=" + user_id;
 		}
 	};
 
@@ -229,6 +242,16 @@ $( document ).ready(function (){
 		middleFunction();		
 	});	
 
+	var transactionSucces = function (transactiondata) {
+		var id = transactiondata.data.id;
+		$("#confirmation-content" ).append( "<p id='transaction-id' style='margin-top:20px;'></p>" );
+		$("#transaction-id").text("ID de transacción :  " + id).substring(0,15);
+	};
+
+	var transactionFailed = function (transactiondata) {
+		alert("toma toma aaaaggghhh");
+	};
+
 	$('#sale-button-send').click(function() {
 		$("#confirmation-content > h1").text("Venta completada");
 		var fees_number = $(".button-active").attr("value");
@@ -236,14 +259,30 @@ $( document ).ready(function (){
 		$("#sale-fees-title").remove();
 		$("#sale-button-send").remove();
 		$("#sale-button-cancel").remove();
-		$("#confirmation-content" ).append( "<p id='transaction-id' style='margin-top:20px;'>ID de transacción :  1234-DC12</p>" );
+		
+		//transaction sent to db
+		transaction_data = {
+
+			user_id: getParameterByName("userid"),
+			concept: $("#sale-description").val(),
+			amount: $("#sale-price").val(),
+			fees: fees_number
+		};
+		var transactionTravel = new AddTransactionRequest(transaction_data, transactionSucces, transactionFailed);
+		transactionTravel.sendAjaxRequest();
+
 		$("#confirmation-content" ).append( "<p id='transaction-fees'>Cuotas :  " + fees_number + "</p>" );
 		$("#confirmation-content" ).append( "<button id='transaction-completed' class='btn btn-primary btn-lg input-button-size button-green'>Finalizar</p>" );
 		$('#transaction-completed').click(function() {
 			var name = getParameterByName("user");
 			window.location.href = "/menu?user=" + name;
-		});	
+		});
+		//var temp_buyername = ($("#confirmation-sale-buyer").val().split(":  "));
+		//var temp_cardidnumber = ($("#confirmation-sale-cardID").val().split(":  "));	
 	});	
+//---------------------------------------------------
+//		TRANSACTIONS TEMPLATE
+//---------------------------------------------------
 });
 
 
@@ -271,17 +310,23 @@ function startSaleMode(){
 
 function addUserToMenuHeader(){
 	var name = getParameterByName("user");
+	var userid = getParameterByName("userid");
 	$("#navbar-username").text(name);
-	$("#manual-mode-link").attr("href", "sales?mode=manual&user="+name);
-	$("#grid-mode-link").attr("href", "sales?mode=grid&user="+name);
+	$("#manual-mode-link").attr("href", "sales?mode=manual&user="+name+"&userid="+userid);
+	$("#grid-mode-link").attr("href", "sales?mode=grid&user="+name+"&userid="+userid);
 }
 
-function loadSaleData(){
+function loadSaleData(cardusername, cardid){
 	$("#confirmation-sale-price").text("Precio :  $ " + $("#sale-price").val());
 	$("#confirmation-sale-description").text("Descripción :  " + $("#sale-description").val());
+	$("#confirmation-sale-buyer").text("ID comprador :  " + cardusername);
+	$("#confirmation-sale-cardID").text("ID tarjeta :  " + cardid);
+	window.globalUsername = cardusername;
 }
 
-
+function addTransaction(date, id, price, state, desc){
+	$("#confirmation-content" ).append( "<p id='transaction-id' style='margin-top:20px;'>ID de transacción :  1234-DC12</p>" );
+}
 
 
 
