@@ -16,12 +16,12 @@
 
 <!--
     HEADER -->
-    <nav class="navbar navbar-session navbar-default" role="navigation">
+    <nav class="navbar navbar-session navbar-default transaction-navbar" role="navigation">
       <div class="container-fluid">
         <img id="logo" class="img-responsive pull-left" href="#" src="./static/libs/assets/img/Logo.png"></img>
         <span class="navbar-text pull-right user-logged">
           <span class="glyphicon glyphicon-user"></span>
-          <a href="#">User</a>
+            <a id="navbar-username" href="#">User</a>
         </span>
       </div><!-- /.container-fluid -->
     </nav>
@@ -29,25 +29,44 @@
 <!--
     TITLE -->
     <div class="title">
-      <h1>Registro de movimientos</h1>
+      <h1 class="transaction-h1">Registro de movimientos</h1>
     </div>
 
 <!--
+    POPUP WINDOW -->
+    <div id="sale-confirmation" class="sale-confirmation-container mipago-hidden">
+    </div>
+    <div id="confirmation-content" class="finality mipago-hidden">
+      <a id="close-icon" href="#"><span class="glyphicon glyphicon-remove"></span></a>
+      <h1> Datos de la transacción </h1>
+          <p id="confirmation-sale-time"> 12:12 </p>
+          <p id="confirmation-sale-price"> Precio: $322 </p>
+          <p id="confirmation-sale-description"> Descripcion: Lorem ipsum </p>
+          <p id="confirmation-sale-saler"> Vendedor: miPago - Demo </p>
+          <p> RUC: 12344321 </p>
+          <p id="transaction-fees">Cuotas</p>
+          <br>
+          <p id="confirmation-sale-id"> ID de Transacción : </p>
+          <p id="confirmation-sale-id-value"></p>
+    </div>
+
+
+<!--
     LIST OF TRANSACTIONS -->
+
     <ul id="transactions-container" class="nav nav-pills nav-stacked menu-ul">
       <li>
-        <span id="transaction-date" class="col-xs-3">date</span>
-        <span id="transaction-id" class="col-xs-3">id</span>
-        <span id="transaction-price" class="col-xs-3">price</span>
-        <span id="transaction-state" class="col-xs-3">state</span>
-        <span id="transaction-desc" class="col-xs-12">desc</span>
-      </li>
-      <li>
-        <span id="transaction-date" class="col-xs-3">date</span>
-        <span id="transaction-id" class="col-xs-3">id</span>
-        <span id="transaction-price" class="col-xs-3">price</span>
-        <span id="transaction-state" class="col-xs-3">state</span>
-        <span id="transaction-desc" class="col-xs-12">desc</span>
+        <span class="col-xs-5 transaction-table-title">Fecha</span>
+        <!--<span class="col-xs-3 transaction-table-title">ID</span> -->
+        <span class="col-xs-3 transaction-table-title">Costo</span>
+        <span class="col-xs-4 transaction-table-title">Estado</span>
       </li>       
     </ul>
 </body>
+
+<script>
+  window.onload = function() {
+    addUserToTransactionHeader();
+    DisplayUserTransactions();
+  };
+</script>

@@ -245,11 +245,11 @@ $( document ).ready(function (){
 	var transactionSucces = function (transactiondata) {
 		var id = transactiondata.data.id;
 		$("#confirmation-content" ).append( "<p id='transaction-id' style='margin-top:20px;'></p>" );
-		$("#transaction-id").text("ID de transacción :  " + id).substring(0,15);
+		$("#transaction-id").text("ID de transacción :  " + id.substring(0,13));
 	};
 
 	var transactionFailed = function (transactiondata) {
-		alert("toma toma aaaaggghhh");
+		alert("Ha ocurrido un error");
 	};
 
 	$('#sale-button-send').click(function() {
@@ -275,7 +275,8 @@ $( document ).ready(function (){
 		$("#confirmation-content" ).append( "<button id='transaction-completed' class='btn btn-primary btn-lg input-button-size button-green'>Finalizar</p>" );
 		$('#transaction-completed').click(function() {
 			var name = getParameterByName("user");
-			window.location.href = "/menu?user=" + name;
+			var userid = getParameterByName("userid");
+			window.location.href = "/menu?user=" + name +"&userid=" + userid;
 		});
 		//var temp_buyername = ($("#confirmation-sale-buyer").val().split(":  "));
 		//var temp_cardidnumber = ($("#confirmation-sale-cardID").val().split(":  "));	
@@ -283,6 +284,10 @@ $( document ).ready(function (){
 //---------------------------------------------------
 //		TRANSACTIONS TEMPLATE
 //---------------------------------------------------
+	$("#close-icon").click(function() {
+		$("#confirmation-content").addClass("mipago-hidden");
+		$("#sale-confirmation").addClass("mipago-hidden");
+	});
 });
 
 
@@ -314,6 +319,7 @@ function addUserToMenuHeader(){
 	$("#navbar-username").text(name);
 	$("#manual-mode-link").attr("href", "sales?mode=manual&user="+name+"&userid="+userid);
 	$("#grid-mode-link").attr("href", "sales?mode=grid&user="+name+"&userid="+userid);
+	$("#transactions-link").attr("href", "transaction?mode=grid&user="+name+"&userid="+userid);
 }
 
 function loadSaleData(cardusername, cardid){
@@ -324,9 +330,44 @@ function loadSaleData(cardusername, cardid){
 	window.globalUsername = cardusername;
 }
 
-function addTransaction(date, id, price, state, desc){
-	$("#confirmation-content" ).append( "<p id='transaction-id' style='margin-top:20px;'>ID de transacción :  1234-DC12</p>" );
+function addTransaction(date, id, price, state, desc, fees){
+	$("#transactions-container" ).append( "<a id='transaction-link-"+id+"' href='#' class='clickable'><li id='" + id + "'>"+
+											"<span id='transaction-date-"+id+"' class='col-xs-5 item-date'>"+date+"</span>"+
+											//"<span id='transaction-id-"+id+"' class='col-xs-3'>"+id.substring(0,8)+"</span>"+
+											"<span id='transaction-price-"+id+"' class='col-xs-3 item-price'>$ "+price+"</span>"+
+											"<span id='transaction-state-"+id+"' class='col-xs-4 item-state'>"+state+"</span>"+
+											"<span id='transaction-desc-"+id+"' class='col-xs-12 item-desc'>"+desc+"</span>"+
+										"</li></a>" );
+	$("#transaction-link-"+id).click(function() {
+		$("#confirmation-sale-time").text( "Fecha/Hora :  " + date );
+		$("#confirmation-sale-price").text( "Precio : $ " + price );
+		$("#confirmation-sale-description").text( "Concepto : " + desc );
+		$("#transaction-fees").text( "Cuotas : " + fees );
+		$("#confirmation-sale-id-value").text( id );
+		$("#confirmation-content").removeClass("mipago-hidden");
+		$("#sale-confirmation").removeClass("mipago-hidden");		
+	});
 }
 
+function addUserToTransactionHeader(){
+	var name = getParameterByName("user");
+	$("#navbar-username").text(name);
+}
+
+
+function DisplayUserTransactions(){
+	var transactionFailed = function (transactiondata) {
+		alert("Ha ocurrido un error");
+	};
+	var transactionSucces = function (transactiondata) {
+		$.each(transactiondata.data, function(i, item) {
+			addTransaction(item.created, item.id, item.amount, item.status, item.concept, item.fees);
+		});
+	};
+	var temp_id = getParameterByName("userid");
+	var param = { users: JSON.stringify([temp_id])};
+	var transactionsReq = new GetTransactionsRequest(param, transactionSucces, transactionFailed);
+	transactionsReq.sendAjaxRequest();
+} 
 
 
